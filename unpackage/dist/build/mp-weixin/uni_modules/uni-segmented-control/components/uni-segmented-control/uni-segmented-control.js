@@ -1,0 +1,10 @@
+(global["webpackJsonp"]=global["webpackJsonp"]||[]).push([["uni_modules/uni-segmented-control/components/uni-segmented-control/uni-segmented-control"],{"1dda":function(t,n,e){"use strict";e.r(n);var r=e("8e78"),u=e("624e");for(var c in u)"default"!==c&&function(t){e.d(n,t,(function(){return u[t]}))}(c);e("cff5");var i,o=e("f0c5"),f=Object(o["a"])(u["default"],r["b"],r["c"],!1,null,"36ccf844",null,!1,r["a"],i);n["default"]=f.exports},"47cf":function(t,n,e){"use strict";Object.defineProperty(n,"__esModule",{value:!0}),n.default=void 0;var r={name:"UniSegmentedControl",emits:["clickItem"],props:{current:{type:Number,default:0},values:{type:Array,default:function(){return[]}},activeColor:{type:String,default:"#007aff"},styleType:{type:String,default:"button"}},data:function(){return{currentIndex:0}},watch:{current:function(t){t!==this.currentIndex&&(this.currentIndex=t)}},created:function(){this.currentIndex=this.current},methods:{_onClick:function(t){this.currentIndex!==t&&(this.currentIndex=t,this.$emit("clickItem",{currentIndex:t}))}}};n.default=r},"624e":function(t,n,e){"use strict";e.r(n);var r=e("47cf"),u=e.n(r);for(var c in r)"default"!==c&&function(t){e.d(n,t,(function(){return r[t]}))}(c);n["default"]=u.a},"8e78":function(t,n,e){"use strict";var r;e.d(n,"b",(function(){return u})),e.d(n,"c",(function(){return c})),e.d(n,"a",(function(){return r}));var u=function(){var t=this,n=t.$createElement;t._self._c},c=[]},c844:function(t,n,e){},cff5:function(t,n,e){"use strict";var r=e("c844"),u=e.n(r);u.a}}]);
+;(global["webpackJsonp"] = global["webpackJsonp"] || []).push([
+    'uni_modules/uni-segmented-control/components/uni-segmented-control/uni-segmented-control-create-component',
+    {
+        'uni_modules/uni-segmented-control/components/uni-segmented-control/uni-segmented-control-create-component':(function(module, exports, __webpack_require__){
+            __webpack_require__('543d')['createComponent'](__webpack_require__("1dda"))
+        })
+    },
+    [['uni_modules/uni-segmented-control/components/uni-segmented-control/uni-segmented-control-create-component']]
+]);
