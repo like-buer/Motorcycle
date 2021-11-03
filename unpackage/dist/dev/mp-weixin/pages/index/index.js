@@ -161,7 +161,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0; //
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0; //
 //
 //
 //
@@ -249,13 +249,18 @@ var _default =
 
   },
   methods: {
+    toPractice: function toPractice() {
+      uni.navigateTo({
+        url: '/pages/practice/index' });
+
+    },
+    // tab 切换
     onClickItem: function onClickItem(_ref)
 
     {var currentIndex = _ref.currentIndex;
-      console.log(currentIndex);
-      console.log(this.current);
       this.current = currentIndex;
     } } };exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
 /* 17 */

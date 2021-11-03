@@ -1,0 +1,16 @@
+.content .practive.data-v-3ef4ae92 {
+  padding: 30rpx;
+  background-color: #f7f7f7;
+}
+.content .practive .question.data-v-3ef4ae92 {
+  color: #55617d;
+}
+.content .practive .options--item.data-v-3ef4ae92 {
+  background-color: #FFFFFF;
+  border-radius: 10rpx;
+  margin-top: 20rpx;
+  padding: 15px;
+  color: #868686;
+  box-shadow: 0rpx 2rpx 14rpx rgba(0, 0, 0, 0.03);
+}
+

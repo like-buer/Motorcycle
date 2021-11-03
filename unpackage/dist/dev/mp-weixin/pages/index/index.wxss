@@ -3,10 +3,10 @@
   display: -webkit-flex;
   display: flex;
   background-color: #fdfffe;
+  padding: 50rpx 0;
 }
 .content .startList .item--left.data-v-57280228,
 .content .startList .item--right.data-v-57280228 {
-  padding: 0 20px;
   width: 1rpx;
   -webkit-box-flex: 2;
   -webkit-flex-grow: 2;
@@ -33,6 +33,7 @@
   -webkit-box-align: center;
   -webkit-align-items: center;
           align-items: center;
+  padding: 50rpx 0;
 }
 .content .startList .item--left .start .icon.data-v-57280228,
 .content .startList .item--right .start .icon.data-v-57280228 {
@@ -49,6 +50,7 @@
   -webkit-box-pack: center;
   -webkit-justify-content: center;
           justify-content: center;
+  box-shadow: 20rpx 20rpx 60rpx #bebebe, -20rpx -20rpx 60rpx #ffffff;
 }
 .content .startList .item--left .start .title.data-v-57280228,
 .content .startList .item--right .start .title.data-v-57280228 {
@@ -71,10 +73,9 @@
   -webkit-box-align: center;
   -webkit-align-items: center;
           align-items: center;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-          justify-content: center;
-  padding: 20px 0;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+          justify-content: space-between;
 }
 .content .startList .item--center .start.data-v-57280228 {
   width: 200rpx;
@@ -93,7 +94,7 @@
   -webkit-box-pack: center;
   -webkit-justify-content: center;
           justify-content: center;
-  margin: 20rpx;
+  box-shadow: 20rpx 20rpx 60rpx #bebebe, -20rpx -20rpx 60rpx #ffffff;
 }
 .content .startList .item--center .start.data-v-57280228:nth-of-type(1) {
   background-color: #3aa5f9;

@@ -17,7 +17,7 @@
 			<view class="item item--left">
 				<view class="start">
 					<view class="icon">
-						<uni-icons type="cloud-download" size="26" color="#fff"/>
+						<uni-icons type="cloud-download" size="26" color="#fff" />
 					</view>
 					<view class="title">
 						随机练习
@@ -25,7 +25,7 @@
 				</view>
 				<view class="start">
 					<view class="icon">
-						<uni-icons type="cloud-download" size="26" color="#fff"/>
+						<uni-icons type="cloud-download" size="26" color="#fff" />
 					</view>
 					<view class="title">
 						随机练习
@@ -33,7 +33,7 @@
 				</view>
 			</view>
 			<view class="item item--center">
-				<view class="start order">
+				<view class="start order" @click="toPractice">
 					<view>顺序联系</view>
 					<view>0/400</view>
 				</view>
@@ -45,7 +45,7 @@
 			<view class="item item--right">
 				<view class="start">
 					<view class="icon">
-						<uni-icons type="cloud-download" size="26" color="#fff"/>
+						<uni-icons type="cloud-download" size="26" color="#fff" />
 					</view>
 					<view class="title">
 						随机练习
@@ -54,7 +54,7 @@
 
 				<view class="start">
 					<view class="icon">
-						<uni-icons type="cloud-download" size="26" color="#fff"/>
+						<uni-icons type="cloud-download" size="26" color="#fff" />
 					</view>
 					<view class="title">
 						随机练习
@@ -86,11 +86,15 @@
 
 		},
 		methods: {
+			toPractice() {
+				uni.navigateTo({
+					url: '/pages/practice/index'
+				})
+			},
+			// tab 切换
 			onClickItem({
 				currentIndex
 			}) {
-				console.log(currentIndex);
-				console.log(this.current)
 				this.current = currentIndex;
 			}
 		}
@@ -102,25 +106,26 @@
 		.startList {
 			display: flex;
 			background-color: #fdfffe;
+			padding: 50rpx 0;
 
 			.item {
 
 				&--left,
 				&--right {
-					
-					
-					padding: 0 20px;
+
 					width: 1rpx;
 					flex-grow: 2;
-					
+
 					display: flex;
 					flex-direction: column;
 					justify-content: space-around;
+
 					.start {
 						display: flex;
 						flex-direction: column;
 						align-items: center;
-						
+						padding: 50rpx 0;
+
 						.icon {
 							width: 80rpx;
 							height: 80rpx;
@@ -129,9 +134,11 @@
 							display: flex;
 							align-items: center;
 							justify-content: center;
-							
+
+							box-shadow: 20rpx 20rpx 60rpx #bebebe,
+								-20rpx -20rpx 60rpx #ffffff;
 						}
-						
+
 						.title {
 							color: #000;
 							font-size: 30rpx;
@@ -146,9 +153,7 @@
 					display: flex;
 					flex-direction: column;
 					align-items: center;
-					justify-content: center;
-					
-					padding: 20px 0;
+					justify-content: space-between;
 
 					.start {
 						width: 200rpx;
@@ -159,8 +164,8 @@
 						flex-direction: column;
 						align-items: center;
 						justify-content: center;
-
-						margin: 20rpx;
+						box-shadow: 20rpx 20rpx 60rpx #bebebe,
+							-20rpx -20rpx 60rpx #ffffff;
 
 						&:nth-of-type(1) {
 							background-color: #3aa5f9;
@@ -190,7 +195,7 @@
 
 		.swiper {
 			height: 160rpx;
-			
+
 			image {
 				height: 100%;
 			}

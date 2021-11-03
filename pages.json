@@ -11,6 +11,12 @@
 			"style": {
 				"navigationBarTitleText": "Motorcycle"
 			}
+		},
+		{
+			"path": "pages/practice/index",
+			"style": {
+				"navigationBarTitleText": "练习"
+			}
 		}
 	],
 	"globalStyle": {
@@ -23,13 +29,13 @@
     "list": [{
       "pagePath": "pages/index/index",
       "text": "考证",
-			"iconPath": "static/logo.png",
-			"selectedIconPath":"static/logo.png"
+			"iconPath": "static/tabbar/card.png",
+			"selectedIconPath":"static/tabbar/card_c.png"
     }, {
       "pagePath": "pages/profile/index",
       "text": "我的",
-			"iconPath": "static/logo.png",
-			"selectedIconPath":"static/logo.png"
+			"iconPath": "static/tabbar/profile.png",
+			"selectedIconPath":"static/tabbar/profile_c.png"
     }]
   }
 }
