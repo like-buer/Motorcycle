@@ -8143,10 +8143,21 @@ module.exports = g;
 
 /***/ }),
 
-/***/ 39:
-/*!****************************************************************************************************************!*\
-  !*** C:/Users/30696/Documents/HBuilderProjects/Motorcycle/uni_modules/uni-icons/components/uni-icons/icons.js ***!
-  \****************************************************************************************************************/
+/***/ 4:
+/*!***********************************************************!*\
+  !*** C:/Users/fei/Documents/GitHub/Motorcycle/pages.json ***!
+  \***********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+
+
+/***/ }),
+
+/***/ 47:
+/*!****************************************************************************************************!*\
+  !*** C:/Users/fei/Documents/GitHub/Motorcycle/uni_modules/uni-icons/components/uni-icons/icons.js ***!
+  \****************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -8282,17 +8293,6 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
   "cloud-download-filled": "\uE8E9",
   "headphones": "\uE8BF",
   "shop": "\uE609" };exports.default = _default;
-
-/***/ }),
-
-/***/ 4:
-/*!***********************************************************************!*\
-  !*** C:/Users/30696/Documents/HBuilderProjects/Motorcycle/pages.json ***!
-  \***********************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-
 
 /***/ })
 
