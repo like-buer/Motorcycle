@@ -1,6 +1,14 @@
+.content .remarks.data-v-3ef4ae92 {
+  padding: 30rpx;
+  background-color: #ffffff;
+}
+.content .gap.data-v-3ef4ae92 {
+  background-color: #f7f7f7;
+  height: 20rpx;
+}
 .content .practive.data-v-3ef4ae92 {
   padding: 30rpx;
-  background-color: #f7f7f7;
+  background-color: #ffffff;
 }
 .content .practive .question.data-v-3ef4ae92 {
   color: #55617d;
@@ -22,7 +30,7 @@
   border-radius: 15rpx;
 }
 .content .practive .options--item.data-v-3ef4ae92 {
-  background-color: #FFFFFF;
+  background-color: #f7f7f7;
   border-radius: 10rpx;
   margin-top: 20rpx;
   padding: 15px;

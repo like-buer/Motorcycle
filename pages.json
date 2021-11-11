@@ -9,7 +9,7 @@
 		{
 			"path": "pages/profile/index",
 			"style": {
-				"navigationBarTitleText": "Motorcycle"
+				"navigationBarTitleText": "我的"
 			}
 		},
 		{
