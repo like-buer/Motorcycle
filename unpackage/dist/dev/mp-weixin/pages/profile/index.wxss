@@ -1,5 +1,16 @@
-.content.data-v-14bc1b43 {
-  border: 1px solid red;
+.content.data-v-14bc1b43 .uni-list-item {
+  height: 100rpx;
+}
+.content.data-v-14bc1b43 .uni-list-item .btn {
+  background-color: transparent;
+  padding: 0;
+  color: #3b4144;
+  font-size: 28rpx;
+  width: 100%;
+  text-align: left;
+}
+.content.data-v-14bc1b43 .uni-list-item .btn::after {
+  border: none;
 }
 .content .gap.data-v-14bc1b43 {
   background-color: #f7f7f7;
