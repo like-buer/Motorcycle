@@ -97,6 +97,24 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
+  var l0 = _vm.__map(_vm.questionList[_vm.idx].Answer, function(item, index) {
+    var $orig = _vm.__get_orig(item)
+
+    var g0 = _vm.checkOption.includes(index)
+    return {
+      $orig: $orig,
+      g0: g0
+    }
+  })
+
+  _vm.$mp.data = Object.assign(
+    {},
+    {
+      $root: {
+        l0: l0
+      }
+    }
+  )
 }
 var recyclableRender = false
 var staticRenderFns = []
@@ -130,47 +148,94 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0; //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-var _default =
-{
-  data: function data() {
-    return {};
-  },
-  onLoad: function onLoad() {
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
 
-  },
-  methods: {} };exports.default = _default;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+var _config = __webpack_require__(/*! @/config/config.js */ 80); //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+var _default = { data: function data() {return { AnswerOption: _config.AnswerOption, idx: 2, questionList: [], checkOption: [] };}, onLoad: function onLoad() {this.getList();}, methods: { // 答题
+    checkAnswer: function checkAnswer(idx) {console.log(idx);var _option = this.questionList[idx].Options;if (_option.length > 1) {console.log('多选题');return;}this.checkOption = [idx]; // this.checkOption = Array.from(new Set(this.checkOption)).sort((a,b) => a-b)
+    }, getList: function getList() {var _this = this;uni.request({ url: 'http://47.98.213.156/Bandk/GetBanks', //仅为示例，并非真实接口地址。
+        success: function success(res) {if (res.statusCode === 200) {_this.questionList = JSON.parse(res.data.Data).map(function (item) {var _answer = [];try {_answer = JSON.parse(item.Answer);} catch (e) {_answer = ['数据异常，请联系管理员'];}item.Answer = _answer;
+              item.Options = JSON.parse(item.Options);
+              return item;
+            });
+            console.log(_this.questionList);
+          }
+        } });
+
+    } } };exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
 

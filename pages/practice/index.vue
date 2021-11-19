@@ -2,44 +2,89 @@
 	<view class="content">
 		<view class="practive">
 			<view class="question">
-				1/400、驾驶机动车在道路上违反道路交通安全法的行为，属于什么行为？
+				{{ idx + 1 }}/400、{{ questionList[idx].BankName }}
 			</view>
-			<view class="pic">
+			<view class="pic" v-if="questionList[idx].Imgurl">
 				<image src="http://jiakao-tiku.image.mucang.cn/tiku-media/2021/0729/210645/image-122.jpg"
 					mode="heightFix"></image>
 			</view>
+			<view v-for="item in checkOption">
+				{{ item }}/
+			</view>
+			{{ questionList[idx].Options }}
 			<view class="options">
-				<view class="options--item success">
-					A、过失行为
-				</view>
-				<view class="options--item error">
-					B、违规行为
-				</view>
-				<view class="options--item">
-					B、违章行为
-				</view>
-				<view class="options--item">
-					B、违法行为
+				<!-- success/error -->
+					<!-- success: questionList[idx].Options.find(_ => _ === AnswerOption[index]), -->
+				<!-- {{ checkOption.find(_ => _ === index) }} -->
+				
+				<!-- success: questionList[idx].Answer.includes(AnswerOption[index]), -->
+				
+				<!-- {{ questionList[idx].Answer === 'D' }} -->
+				<view class="options--item" :class="{
+					error: checkOption.includes(index),
+				}" @click="checkAnswer(index)" v-for="(item,index) in questionList[idx].Answer" :key="`answer_${index}`">
+					{{index}}{{ checkOption[0] }}{{ AnswerOption[index] }}、{{ item }}
 				</view>
 			</view>
 		</view>
 		<view class="gap"></view>
 		<view class="remarks">
-			解析：过失行为过失行为过失行为过失行为过失行为过失行为过失行为过失行为过失行为过失行为过失行为过失行为过失行为过失行为过失行为过失行为。
+			解析：
+			<view v-html="questionList[idx].Analysis" ></view>
 		</view>
 	</view>
 </template>
 
 <script>
+	import { AnswerOption } from '@/config/config.js'
 	export default {
 		data() {
-			return {}
+			return {
+				AnswerOption,
+				idx: 2,
+				questionList: [],
+				
+				checkOption: []
+			}
 		},
 		onLoad() {
-
+			this.getList();
 		},
 		methods: {
+			// 答题
+			checkAnswer(idx){
+				console.log(idx)
+				let _option = this.questionList[idx].Options;
+				if(_option.length > 1) {
+					console.log('多选题')
+					return;
+				}
+				this.checkOption = [idx]
+				// this.checkOption = Array.from(new Set(this.checkOption)).sort((a,b) => a-b)
+			},
+			getList() {
+				uni.request({
+					url: 'http://47.98.213.156/Bandk/GetBanks', //仅为示例，并非真实接口地址。
+					success: (res) => {
+						if(res.statusCode === 200) {
+							this.questionList = JSON.parse(res.data.Data).map(item => {
 
+								let _answer = [];
+								try{
+									_answer = JSON.parse(item.Answer)
+								}catch(e){
+									_answer = ['数据异常，请联系管理员']
+								}
+								
+								item.Answer = _answer;
+								item.Options = JSON.parse(item.Options);
+								return item;
+							});
+							console.log(this.questionList)
+						}
+					}
+				});
+			}
 		}
 	}
 </script>

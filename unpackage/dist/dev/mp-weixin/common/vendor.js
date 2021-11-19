@@ -8294,6 +8294,18 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
   "headphones": "\uE8BF",
   "shop": "\uE609" };exports.default = _default;
 
+/***/ }),
+
+/***/ 80:
+/*!*****************************************************************!*\
+  !*** C:/Users/fei/Documents/GitHub/Motorcycle/config/config.js ***!
+  \*****************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });exports.AnswerOption = void 0;var AnswerOption = ['A', 'B', 'C', 'D', 'E', 'F', 'G'];exports.AnswerOption = AnswerOption;
+
 /***/ })
 
 }]);
