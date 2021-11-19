@@ -16,12 +16,8 @@
   font-weight: 600;
 }
 .content .practive .pic.data-v-3ef4ae92 {
-  display: -webkit-box;
-  display: -webkit-flex;
   display: flex;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-          justify-content: center;
+  justify-content: center;
   padding: 30rpx;
 }
 .content .practive .pic image.data-v-3ef4ae92 {

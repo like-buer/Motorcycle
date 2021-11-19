@@ -1,50 +1,46 @@
 <template>
 	<view class="content">
-		<view class="practive">
-			<view class="question">
-				{{ idx + 1 }}/400、{{ questionList[idx].BankName }}
-			</view>
-			<view class="pic" v-if="questionList[idx].Imgurl">
-				<image src="http://jiakao-tiku.image.mucang.cn/tiku-media/2021/0729/210645/image-122.jpg"
-					mode="heightFix"></image>
-			</view>
-			<view v-for="item in checkOption">
-				{{ item }}/
-			</view>
-			{{ questionList[idx].Options }}
-			<view class="options">
-				<!-- success/error -->
-					<!-- success: questionList[idx].Options.find(_ => _ === AnswerOption[index]), -->
-				<!-- {{ checkOption.find(_ => _ === index) }} -->
-				
-				<!-- success: questionList[idx].Answer.includes(AnswerOption[index]), -->
-				
-				<!-- {{ questionList[idx].Answer === 'D' }} -->
-				<view class="options--item" :class="{
-					error: checkOption.includes(index),
+		<template v-if="questionList.length">
+
+			<view class="practive">
+				<view class="question">
+					{{ idx + 1 }}/400、{{ questionList[idx].BankName }}
+				</view>
+				<view class="pic" v-if="questionList[idx].Imgurl">
+					<image src="http://jiakao-tiku.image.mucang.cn/tiku-media/2021/0729/210645/image-122.jpg"
+						mode="heightFix"></image>
+				</view>
+				<view class="options">
+					<view class="options--item" :class="{
+					error: submitOption.includes(index) && !questionList[idx].Options.includes(index),
+					success: submitOption.includes(index) && questionList[idx].Options.includes(index)
 				}" @click="checkAnswer(index)" v-for="(item,index) in questionList[idx].Answer" :key="`answer_${index}`">
-					{{index}}{{ checkOption[0] }}{{ AnswerOption[index] }}、{{ item }}
+						{{ AnswerOption[index] }}、{{ item }}
+					</view>
 				</view>
 			</view>
-		</view>
-		<view class="gap"></view>
-		<view class="remarks">
-			解析：
-			<view v-html="questionList[idx].Analysis" ></view>
-		</view>
+			<view class="gap"></view>
+			<view class="remarks">
+				解析：
+				<view v-html="questionList[idx].Analysis"></view>
+			</view>
+		</template>
 	</view>
 </template>
 
 <script>
-	import { AnswerOption } from '@/config/config.js'
+	import {
+		AnswerOption
+	} from '@/config/config.js'
 	export default {
 		data() {
 			return {
 				AnswerOption,
-				idx: 2,
+				idx: 1,
 				questionList: [],
-				
-				checkOption: []
+
+				checkOption: [],
+				submitOption: []
 			}
 		},
 		onLoad() {
@@ -52,32 +48,44 @@
 		},
 		methods: {
 			// 答题
-			checkAnswer(idx){
+			checkAnswer(idx) {
 				console.log(idx)
 				let _option = this.questionList[idx].Options;
-				if(_option.length > 1) {
-					console.log('多选题')
-					return;
-				}
-				this.checkOption = [idx]
-				// this.checkOption = Array.from(new Set(this.checkOption)).sort((a,b) => a-b)
+				this.checkOption.push(idx)
+
+				if (_option.length > 1) return;
+				this.submitAnswer();
 			},
+			// 提交答案
+			submitAnswer() {
+				this.submitOption = Array.from(new Set(this.checkOption)).sort((a, b) => a - b)
+				this.checkOption = [];
+
+				// 此处判断是否回答正确以及下一题
+				setTimeout(() => {
+					this.submitOption = [];
+					this.idx ++;
+				},2000)
+			},
+			// 获取题库
 			getList() {
 				uni.request({
 					url: 'http://47.98.213.156/Bandk/GetBanks', //仅为示例，并非真实接口地址。
 					success: (res) => {
-						if(res.statusCode === 200) {
+						if (res.statusCode === 200) {
 							this.questionList = JSON.parse(res.data.Data).map(item => {
 
 								let _answer = [];
-								try{
+								try {
 									_answer = JSON.parse(item.Answer)
-								}catch(e){
+								} catch (e) {
 									_answer = ['数据异常，请联系管理员']
 								}
-								
+
 								item.Answer = _answer;
-								item.Options = JSON.parse(item.Options);
+								item.Options = JSON.parse(item.Options).map(_ => this.AnswerOption
+									.findIndex(__ => __ === _));
+								console.log(item.Options)
 								return item;
 							});
 							console.log(this.questionList)
