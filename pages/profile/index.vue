@@ -46,15 +46,14 @@
 			toLogin() {
 				uni.login({
 					provider: 'weixin',
-					success: ({
-						code
-					}) => {
-						console.log(code);
+					success: (res) => {
+						console.log(res);
 						// 获取用户信息
 						uni.getUserInfo({
 							provider: 'weixin',
 							success: info => {
-								console.log('用户昵称为：' + info.userInfo.nickName);
+								console.log(info)
+								// console.log('用户昵称为：' + info.userInfo.nickName);
 							}
 						});
 					}

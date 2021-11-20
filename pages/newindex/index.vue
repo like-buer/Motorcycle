@@ -1,48 +1,57 @@
 <template>
-	<view class="content">
+	<view class="">
+
 		<template v-if="questionList.length">
-			<view class="practive">
-				<view class="question">
-					{{ idx + 1 }}/400、{{ questionList[idx].BankName }}
-				</view>
-				<view class="pic" v-if="questionList[idx].Imgurl">
-					<image src="http://jiakao-tiku.image.mucang.cn/tiku-media/2021/0729/210645/image-122.jpg"
-						mode="heightFix"></image>
-				</view>
-				<view class="options">
-					<view class="options--item" :class="{
-					error: submitOption.includes(index) && !questionList[idx].Options.includes(index),
-					success: submitOption.includes(index) && questionList[idx].Options.includes(index)
-				}" @click="checkAnswer(index)" v-for="(item,index) in questionList[idx].Answer" :key="`answer_${index}`">
-						{{ AnswerOption[index] }}、{{ item }}
+			<swiper class="swiper" :current="current" @change="changeSwiper">
+				<swiper-item v-for="(item,idx) in questionList">
+					<view class="content">
+						<view class="practive">
+							<view class="question">
+								{{ idx + 1 }}/400、{{ item.BankName }}
+							</view>
+							<view class="pic" v-if="item.Imgurl">
+								<image
+									src="http://jiakao-tiku.image.mucang.cn/tiku-media/2021/0729/210645/image-122.jpg"
+									mode="heightFix"></image>
+							</view>
+							<view class="options">
+								<view class="options--item" :class="{
+								error: submitOption.includes(index) && !item.Options.includes(index),
+								success: submitOption.includes(index) && item.Options.includes(index)
+							}" @click="checkAnswer(index)" v-for="(_answer,index) in item.Answer" :key="item">
+									{{ AnswerOption[index] }}、{{ _answer }}
 
-						<view class="status">
-							<image src="@/static/success.png" mode=""
-								v-if="submitOption.includes(index) && questionList[idx].Options.includes(index)">
-							</image>
-							<image src="@/static/error.png" mode=""
-								v-if="submitOption.includes(index) && !questionList[idx].Options.includes(index)">
-							</image>
+									<view class="status">
+										<image src="@/static/success.png" mode=""
+											v-if="submitOption.includes(index) && item.Options.includes(index)">
+										</image>
+										<image src="@/static/error.png" mode=""
+											v-if="submitOption.includes(index) && !item.Options.includes(index)">
+										</image>
+									</view>
+								</view>
+							</view>
+
+							<view class="answer" v-if="isAnalysis">
+								<!-- 正确答案：{{ item.Options.map(_ => AnswerOption[_]).join('、')   }} -->
+							</view>
 						</view>
+						<template v-if="isAnalysis">
+							<view class="gap"></view>
+							<view class="remarks">
+								<view class="analysis">
+									<text>解析</text>
+								</view>
+								<view class="text" v-html="item.Analysis"></view>
+							</view>
+						</template>
 					</view>
-				</view>
-
-				<view class="answer" v-if="isAnalysis">
-					正确答案：{{ questionList[idx].Options.map(_ => AnswerOption[_]).join('、')   }}
-				</view>
-			</view>
-			<template v-if="isAnalysis">
-				<view class="gap"></view>
-				<view class="remarks">
-					<view class="analysis">
-						<text>解析</text>
-					</view>
-					<view class="text" v-html="questionList[idx].Analysis"></view>
-				</view>
-			</template>
+				</swiper-item>
+			</swiper>
 		</template>
 	</view>
 </template>
+
 
 <script>
 	import {
@@ -52,7 +61,8 @@
 		data() {
 			return {
 				AnswerOption,
-				idx: 1,
+				// idx: 1,
+				current: 0,
 				questionList: [],
 
 				checkOption: [],
@@ -66,10 +76,16 @@
 			this.getList();
 		},
 		methods: {
+			changeSwiper(e){
+				this.current = e.target.current;
+				this.isAnalysis = false;
+				this.submitOption = [];
+			},
 			// 答题
 			checkAnswer(idx) {
 				if (this.submitOption.length) return
-				let _option = this.questionList[idx].Options;
+				
+				let _option = this.questionList[this.current].Options;
 				this.checkOption.push(idx)
 
 				if (_option.length > 1) return;
@@ -82,7 +98,6 @@
 				this.checkOption = [];
 
 				if (this.endNowAnswer()) {
-					console.log('回答正确')
 					setTimeout(() => {
 						this.nextQuestion();
 					}, 1000)
@@ -92,9 +107,9 @@
 			},
 			// 检查答案
 			endNowAnswer() {
-				if (this.submitOption.length !== this.questionList[this.idx].Options.length) return false;
+				if (this.submitOption.length !== this.questionList[this.current].Options.length) return false;
 				let result = true;
-				this.questionList[this.idx].Options.forEach(item => {
+				this.questionList[this.current].Options.forEach(item => {
 					if (!this.submitOption.includes(item)) {
 						result = false;
 					}
@@ -108,7 +123,7 @@
 			// 下一题
 			nextQuestion() {
 				this.submitOption = [];
-				this.idx++;
+				this.current++;
 			},
 			// 获取题库
 			getList() {
@@ -139,7 +154,13 @@
 	}
 </script>
 
+
 <style lang="less" scoped>
+	.swiper {
+		height: 100vh;
+		overflow-y: auto;
+	}
+
 	.content {
 
 		.answer {

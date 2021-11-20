@@ -1,6 +1,24 @@
+.content .answer.data-v-3ef4ae92 {
+  font-weight: bold;
+  padding: 10rpx 20rpx;
+  border-radius: 5rpx;
+  background-color: #f2f5fa;
+  margin-top: 30rpx;
+}
 .content .remarks.data-v-3ef4ae92 {
   padding: 30rpx;
   background-color: #ffffff;
+}
+.content .remarks .text.data-v-3ef4ae92 {
+  margin-top: 10rpx;
+}
+.content .remarks .analysis text.data-v-3ef4ae92 {
+  background-color: #3aa5f9;
+  -webkit-clip-path: polygon(0% 0%, 75% 0%, 100% 50%, 75% 100%, 0% 100%);
+          clip-path: polygon(0% 0%, 75% 0%, 100% 50%, 75% 100%, 0% 100%);
+  color: #fff;
+  font-size: 22rpx;
+  padding: 5rpx 20rpx 5rpx 10rpx;
 }
 .content .gap.data-v-3ef4ae92 {
   background-color: #f7f7f7;
@@ -33,6 +51,19 @@
   font-size: 30rpx;
   color: #868686;
   box-shadow: 0rpx 2rpx 14rpx rgba(0, 0, 0, 0.03);
+  position: relative;
+}
+.content .practive .options--item .status.data-v-3ef4ae92 {
+  position: absolute;
+  right: 20rpx;
+  top: calc(50% - 35rpx);
+  display: flex;
+  width: 70rpx;
+  height: 70rpx;
+}
+.content .practive .options--item .status image.data-v-3ef4ae92 {
+  width: 70rpx;
+  height: 70rpx;
 }
 .content .practive .options--item.success.data-v-3ef4ae92 {
   background-color: #6ed53b;

@@ -1,25 +1,25 @@
 (global["webpackJsonp"] = global["webpackJsonp"] || []).push([["pages/practice/index"],{
 
 /***/ 28:
-/*!********************************************************************************************************!*\
-  !*** C:/Users/30696/Documents/HBuilderProjects/Motorcycle/main.js?{"page":"pages%2Fpractice%2Findex"} ***!
-  \********************************************************************************************************/
+/*!********************************************************************************************!*\
+  !*** C:/Users/fei/Documents/GitHub/Motorcycle/main.js?{"page":"pages%2Fpractice%2Findex"} ***!
+  \********************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(createPage) {__webpack_require__(/*! uni-pages */ 5);
 var _vue = _interopRequireDefault(__webpack_require__(/*! vue */ 3));
-var _index = _interopRequireDefault(__webpack_require__(/*! ./pages/practice/index.vue */ 29));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
+var _index = _interopRequireDefault(__webpack_require__(/*! ./pages/practice/index.vue */ 29));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}wx.__webpack_require_UNI_MP_PLUGIN__ = __webpack_require__;
 createPage(_index.default);
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["createPage"]))
 
 /***/ }),
 
 /***/ 29:
-/*!*************************************************************************************!*\
-  !*** C:/Users/30696/Documents/HBuilderProjects/Motorcycle/pages/practice/index.vue ***!
-  \*************************************************************************************/
+/*!*************************************************************************!*\
+  !*** C:/Users/fei/Documents/GitHub/Motorcycle/pages/practice/index.vue ***!
+  \*************************************************************************/
 /*! no static exports found */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -58,9 +58,9 @@ component.options.__file = "pages/practice/index.vue"
 /***/ }),
 
 /***/ 30:
-/*!********************************************************************************************************************************!*\
-  !*** C:/Users/30696/Documents/HBuilderProjects/Motorcycle/pages/practice/index.vue?vue&type=template&id=3ef4ae92&scoped=true& ***!
-  \********************************************************************************************************************************/
+/*!********************************************************************************************************************!*\
+  !*** C:/Users/fei/Documents/GitHub/Motorcycle/pages/practice/index.vue?vue&type=template&id=3ef4ae92&scoped=true& ***!
+  \********************************************************************************************************************/
 /*! exports provided: render, staticRenderFns, recyclableRender, components */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -80,9 +80,9 @@ __webpack_require__.r(__webpack_exports__);
 /***/ }),
 
 /***/ 31:
-/*!********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader??ref--16-0!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/template.js!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-uni-app-loader/page-meta.js!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib??vue-loader-options!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/style.js!C:/Users/30696/Documents/HBuilderProjects/Motorcycle/pages/practice/index.vue?vue&type=template&id=3ef4ae92&scoped=true& ***!
-  \********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*!********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader??ref--16-0!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/template.js!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-uni-app-loader/page-meta.js!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib??vue-loader-options!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/style.js!C:/Users/fei/Documents/GitHub/Motorcycle/pages/practice/index.vue?vue&type=template&id=3ef4ae92&scoped=true& ***!
+  \********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns, recyclableRender, components */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -105,20 +105,35 @@ var render = function() {
         var g1 = _vm.questionList[_vm.idx].Options.includes(index)
         var g2 = _vm.submitOption.includes(index)
         var g3 = _vm.questionList[_vm.idx].Options.includes(index)
+        var g4 = _vm.submitOption.includes(index)
+        var g5 = _vm.questionList[_vm.idx].Options.includes(index)
+        var g6 = _vm.submitOption.includes(index)
+        var g7 = _vm.questionList[_vm.idx].Options.includes(index)
         return {
           $orig: $orig,
           g0: g0,
           g1: g1,
           g2: g2,
-          g3: g3
+          g3: g3,
+          g4: g4,
+          g5: g5,
+          g6: g6,
+          g7: g7
         }
       })
     : null
+  var g8 =
+    _vm.questionList.length && _vm.isAnalysis
+      ? _vm.questionList[_vm.idx].Options.map(function(_) {
+          return _vm.AnswerOption[_]
+        }).join("、")
+      : null
   _vm.$mp.data = Object.assign(
     {},
     {
       $root: {
-        l0: l0
+        l0: l0,
+        g8: g8
       }
     }
   )
@@ -132,9 +147,9 @@ render._withStripped = true
 /***/ }),
 
 /***/ 32:
-/*!**************************************************************************************************************!*\
-  !*** C:/Users/30696/Documents/HBuilderProjects/Motorcycle/pages/practice/index.vue?vue&type=script&lang=js& ***!
-  \**************************************************************************************************************/
+/*!**************************************************************************************************!*\
+  !*** C:/Users/fei/Documents/GitHub/Motorcycle/pages/practice/index.vue?vue&type=script&lang=js& ***!
+  \**************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -148,14 +163,30 @@ __webpack_require__.r(__webpack_exports__);
 /***/ }),
 
 /***/ 33:
-/*!*********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader??ref--12-1!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/script.js!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib??vue-loader-options!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/style.js!C:/Users/30696/Documents/HBuilderProjects/Motorcycle/pages/practice/index.vue?vue&type=script&lang=js& ***!
-  \*********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*!*********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader??ref--12-1!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/script.js!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib??vue-loader-options!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/style.js!C:/Users/fei/Documents/GitHub/Motorcycle/pages/practice/index.vue?vue&type=script&lang=js& ***!
+  \*********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -216,22 +247,48 @@ var _config = __webpack_require__(/*! @/config/config.js */ 34); //
 //
 //
 //
-var _default = { data: function data() {return { AnswerOption: _config.AnswerOption, idx: 1, questionList: [], checkOption: [], submitOption: [] };}, onLoad: function onLoad() {this.getList();}, methods: { // 答题
-    checkAnswer: function checkAnswer(idx) {console.log(idx);var _option = this.questionList[idx].Options;this.checkOption.push(idx);if (_option.length > 1) return;this.submitAnswer();}, // 提交答案
-    submitAnswer: function submitAnswer() {var _this = this;this.submitOption = Array.from(new Set(this.checkOption)).sort(function (a, b) {return a - b;});this.checkOption = []; // 此处判断是否回答正确以及下一题
-      setTimeout(function () {
-        _this.submitOption = [];
-        _this.idx++;
-      }, 2000);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+var _default = { data: function data() {return { AnswerOption: _config.AnswerOption, idx: 1, questionList: [], checkOption: [], submitOption: [], isAnalysis: false };}, onLoad: function onLoad() {this.getList();}, methods: { // 答题
+    checkAnswer: function checkAnswer(idx) {if (this.submitOption.length) return;var _option = this.questionList[idx].Options;this.checkOption.push(idx);if (_option.length > 1) return;console.log(this.checkOption);this.submitAnswer();}, // 提交答案
+    submitAnswer: function submitAnswer() {var _this = this;this.submitOption = Array.from(new Set(this.checkOption)).sort(function (a, b) {return a - b;});this.checkOption = [];if (this.endNowAnswer()) {console.log('回答正确');setTimeout(function () {_this.nextQuestion();}, 1000);} else {this.showAnalysis();}}, // 检查答案
+    endNowAnswer: function endNowAnswer() {var _this2 = this;if (this.submitOption.length !== this.questionList[this.idx].Options.length) return false;var result = true;this.questionList[this.idx].Options.forEach(function (item) {
+        if (!_this2.submitOption.includes(item)) {
+          result = false;
+        }
+      });
+      return result;
+    },
+    // 查看解析
+    showAnalysis: function showAnalysis() {
+      this.isAnalysis = true;
+    },
+    // 下一题
+    nextQuestion: function nextQuestion() {
+      this.submitOption = [];
+      this.idx++;
     },
     // 获取题库
-    getList: function getList() {var _this2 = this;
+    getList: function getList() {var _this3 = this;
       uni.request({
-        url: 'http://47.98.213.156/Bandk/GetBanks', //仅为示例，并非真实接口地址。
+        url: 'http://47.98.213.156/Bandk/GetBanks',
         success: function success(res) {
           if (res.statusCode === 200) {
-            _this2.questionList = JSON.parse(res.data.Data).map(function (item) {
-
+            _this3.questionList = JSON.parse(res.data.Data).map(function (item) {
               var _answer = [];
               try {
                 _answer = JSON.parse(item.Answer);
@@ -240,12 +297,12 @@ var _default = { data: function data() {return { AnswerOption: _config.AnswerOpt
               }
 
               item.Answer = _answer;
-              item.Options = JSON.parse(item.Options).map(function (_) {return _this2.AnswerOption.
+              item.Options = JSON.parse(item.Options).map(function (_) {return _this3.AnswerOption.
                 findIndex(function (__) {return __ === _;});});
               console.log(item.Options);
               return item;
             });
-            console.log(_this2.questionList);
+            console.log(_this3.questionList);
           }
         } });
 
@@ -255,9 +312,9 @@ var _default = { data: function data() {return { AnswerOption: _config.AnswerOpt
 /***/ }),
 
 /***/ 35:
-/*!***********************************************************************************************************************************************!*\
-  !*** C:/Users/30696/Documents/HBuilderProjects/Motorcycle/pages/practice/index.vue?vue&type=style&index=0&id=3ef4ae92&lang=less&scoped=true& ***!
-  \***********************************************************************************************************************************************/
+/*!***********************************************************************************************************************************!*\
+  !*** C:/Users/fei/Documents/GitHub/Motorcycle/pages/practice/index.vue?vue&type=style&index=0&id=3ef4ae92&lang=less&scoped=true& ***!
+  \***********************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -271,9 +328,9 @@ __webpack_require__.r(__webpack_exports__);
 /***/ }),
 
 /***/ 36:
-/*!*******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/mini-css-extract-plugin/dist/loader.js??ref--10-oneOf-1-0!./node_modules/css-loader/dist/cjs.js??ref--10-oneOf-1-1!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader??ref--10-oneOf-1-2!./node_modules/postcss-loader/src??ref--10-oneOf-1-3!./node_modules/less-loader/dist/cjs.js??ref--10-oneOf-1-4!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader??ref--10-oneOf-1-5!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib??vue-loader-options!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/style.js!C:/Users/30696/Documents/HBuilderProjects/Motorcycle/pages/practice/index.vue?vue&type=style&index=0&id=3ef4ae92&lang=less&scoped=true& ***!
-  \*******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*!*******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/mini-css-extract-plugin/dist/loader.js??ref--10-oneOf-1-0!./node_modules/css-loader/dist/cjs.js??ref--10-oneOf-1-1!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader??ref--10-oneOf-1-2!./node_modules/postcss-loader/src??ref--10-oneOf-1-3!./node_modules/less-loader/dist/cjs.js??ref--10-oneOf-1-4!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader??ref--10-oneOf-1-5!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib??vue-loader-options!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/style.js!C:/Users/fei/Documents/GitHub/Motorcycle/pages/practice/index.vue?vue&type=style&index=0&id=3ef4ae92&lang=less&scoped=true& ***!
+  \*******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
