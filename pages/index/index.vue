@@ -83,12 +83,11 @@
 			}
 		},
 		onLoad() {
-
 		},
 		methods: {
 			toPractice() {
 				uni.navigateTo({
-					url: '/pages/practice/index'
+					url: '/pages/newindex/index?idx=16'
 				})
 			},
 			// tab 切换
@@ -96,6 +95,12 @@
 				currentIndex
 			}) {
 				this.current = currentIndex;
+			}
+		},
+		onShareAppMessage(res) {
+			return {
+				title: '自定义分享标题',
+				path: '/pages/index/index'
 			}
 		}
 	}
