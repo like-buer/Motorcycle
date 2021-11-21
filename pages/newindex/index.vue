@@ -2,7 +2,7 @@
 	<view class="">
 
 		<template v-if="questionList.length">
-			<swiper class="swiper" :current="current" @change="changeSwiper" disable-touch>
+			<swiper class="swiper" :current="current" @change="changeSwiper" @animationfinish="changeSwiperEnd" disable-touch>
 				<swiper-item v-for="(item,idx) in questionList">
 					<view class="content" v-if="item">
 						<view class="practive">
@@ -127,6 +127,9 @@
 			// });
 		},
 		methods: {
+			changeSwiperEnd(e) {
+				this.current = e.target.current;
+			},
 			changeSwiper(e) {
 				this.submitOption = [];
 				console.log(e.target)
@@ -135,7 +138,7 @@
 					this.awaitNextQuestion = null;
 					return;
 				}
-				this.current = e.target.current;
+				// this.current = e.target.current;
 			},
 			// 答题
 			checkAnswer(idx, index) {
