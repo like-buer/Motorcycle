@@ -104,10 +104,10 @@ var components
 try {
   components = {
     uniSegmentedControl: function() {
-      return __webpack_require__.e(/*! import() | uni_modules/uni-segmented-control/components/uni-segmented-control/uni-segmented-control */ "uni_modules/uni-segmented-control/components/uni-segmented-control/uni-segmented-control").then(__webpack_require__.bind(null, /*! @/uni_modules/uni-segmented-control/components/uni-segmented-control/uni-segmented-control.vue */ 45))
+      return __webpack_require__.e(/*! import() | uni_modules/uni-segmented-control/components/uni-segmented-control/uni-segmented-control */ "uni_modules/uni-segmented-control/components/uni-segmented-control/uni-segmented-control").then(__webpack_require__.bind(null, /*! @/uni_modules/uni-segmented-control/components/uni-segmented-control/uni-segmented-control.vue */ 40))
     },
     uniIcons: function() {
-      return Promise.all(/*! import() | uni_modules/uni-icons/components/uni-icons/uni-icons */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uni-icons/components/uni-icons/uni-icons")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uni-icons/components/uni-icons/uni-icons.vue */ 52))
+      return Promise.all(/*! import() | uni_modules/uni-icons/components/uni-icons/uni-icons */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uni-icons/components/uni-icons/uni-icons")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uni-icons/components/uni-icons/uni-icons.vue */ 47))
     }
   }
 } catch (e) {
@@ -239,7 +239,6 @@ var _default =
       // interval: 2000,
       // duration: 500,
 
-
       items: ['科目一', '科目四'],
       current: 0,
       activeColor: '#007aff' };
@@ -249,9 +248,17 @@ var _default =
   onLoad: function onLoad() {
   },
   methods: {
-    toPractice: function toPractice() {
+    toPractice: function toPractice(num) {
+
+
+      if (typeof num === 'number') {
+        uni.navigateTo({
+          url: "/pages/practice/index?sum=".concat(num) });
+
+        return;
+      }
       uni.navigateTo({
-        url: '/pages/newindex/index?idx=16' });
+        url: '/pages/practice/index?idx=0' });
 
     },
     // tab 切换

@@ -941,7 +941,7 @@ function initData(vueOptions, context) {
     try {
       data = data.call(context); // 支持 Vue.prototype 上挂的数据
     } catch (e) {
-      if (Object({"NODE_ENV":"development","VUE_APP_NAME":"Motorcycle","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG) {
+      if (Object({"VUE_APP_NAME":"Motorcycle","VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG) {
         console.warn('根据 Vue 的 data 函数初始化小程序 data 失败，请尽量确保 data 函数中不访问 vm 对象，否则可能影响首次数据渲染速度。', data);
       }
     }
@@ -7737,7 +7737,7 @@ function type(obj) {
 
 function flushCallbacks$1(vm) {
     if (vm.__next_tick_callbacks && vm.__next_tick_callbacks.length) {
-        if (Object({"NODE_ENV":"development","VUE_APP_NAME":"Motorcycle","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG) {
+        if (Object({"VUE_APP_NAME":"Motorcycle","VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG) {
             var mpInstance = vm.$scope;
             console.log('[' + (+new Date) + '][' + (mpInstance.is || mpInstance.route) + '][' + vm._uid +
                 ']:flushCallbacks[' + vm.__next_tick_callbacks.length + ']');
@@ -7758,14 +7758,14 @@ function nextTick$1(vm, cb) {
     //1.nextTick 之前 已 setData 且 setData 还未回调完成
     //2.nextTick 之前存在 render watcher
     if (!vm.__next_tick_pending && !hasRenderWatcher(vm)) {
-        if(Object({"NODE_ENV":"development","VUE_APP_NAME":"Motorcycle","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG){
+        if(Object({"VUE_APP_NAME":"Motorcycle","VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG){
             var mpInstance = vm.$scope;
             console.log('[' + (+new Date) + '][' + (mpInstance.is || mpInstance.route) + '][' + vm._uid +
                 ']:nextVueTick');
         }
         return nextTick(cb, vm)
     }else{
-        if(Object({"NODE_ENV":"development","VUE_APP_NAME":"Motorcycle","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG){
+        if(Object({"VUE_APP_NAME":"Motorcycle","VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG){
             var mpInstance$1 = vm.$scope;
             console.log('[' + (+new Date) + '][' + (mpInstance$1.is || mpInstance$1.route) + '][' + vm._uid +
                 ']:nextMPTick');
@@ -7851,7 +7851,7 @@ var patch = function(oldVnode, vnode) {
     });
     var diffData = this.$shouldDiffData === false ? data : diff(data, mpData);
     if (Object.keys(diffData).length) {
-      if (Object({"NODE_ENV":"development","VUE_APP_NAME":"Motorcycle","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG) {
+      if (Object({"VUE_APP_NAME":"Motorcycle","VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG) {
         console.log('[' + (+new Date) + '][' + (mpInstance.is || mpInstance.route) + '][' + this._uid +
           ']差量更新',
           JSON.stringify(diffData));
@@ -8268,6 +8268,113 @@ internalMixin(Vue);
 
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });exports.AnswerOption = void 0;var AnswerOption = ['A', 'B', 'C', 'D', 'E', 'F', 'G'];exports.AnswerOption = AnswerOption;
+
+/***/ }),
+
+/***/ 35:
+/*!*************************************************************************!*\
+  !*** C:/Users/30696/Documents/HBuilderProjects/Motorcycle/utils/api.js ***!
+  \*************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _request = _interopRequireDefault(__webpack_require__(/*! ./request.js */ 36));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function ownKeys(object, enumerableOnly) {var keys = Object.keys(object);if (Object.getOwnPropertySymbols) {var symbols = Object.getOwnPropertySymbols(object);if (enumerableOnly) symbols = symbols.filter(function (sym) {return Object.getOwnPropertyDescriptor(object, sym).enumerable;});keys.push.apply(keys, symbols);}return keys;}function _objectSpread(target) {for (var i = 1; i < arguments.length; i++) {var source = arguments[i] != null ? arguments[i] : {};if (i % 2) {ownKeys(Object(source), true).forEach(function (key) {_defineProperty(target, key, source[key]);});} else if (Object.getOwnPropertyDescriptors) {Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));} else {ownKeys(Object(source)).forEach(function (key) {Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));});}}return target;}function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;}
+
+
+
+var api = {
+  getQuestions: function getQuestions(data) {
+    return (0, _request.default)({
+      url: '/Bandk/GetBanks',
+      method: 'get',
+      type: 'application/json',
+      data: data });
+
+  } };var _default = _objectSpread({},
+
+
+
+api);exports.default = _default;
+
+/***/ }),
+
+/***/ 36:
+/*!*****************************************************************************!*\
+  !*** C:/Users/30696/Documents/HBuilderProjects/Motorcycle/utils/request.js ***!
+  \*****************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0; /**
+                                                                                                      * 请求工具类
+                                                                                                      * wangfei
+                                                                                                      * 2021年7月2日09:42:19
+                                                                                                      */var _default =
+
+function _default(__self) {
+  console.log("\u5F53\u524D\u73AF\u5883\uFF1A".concat("development"));
+
+  // 定义当前环境
+  var isdev = "development" === 'development';
+  var BASEURL = getApp().globalData.apiUrl;
+
+  // 定义请求实体类
+  var params = {
+    timeout: 10000 // 超时时间
+  };var
+
+  url = __self.url,method = __self.method,type = __self.type,data = __self.data,query = __self.query,file = __self.file,inData = __self.inData;
+
+  // URL
+  params.url = BASEURL + url;
+  // METHOD
+  params.method = method.toLocaleUpperCase();
+  // DATA
+  params.data = data;
+
+  // 请求格式
+  var header = {
+    "content-type": type || 'application/json',
+    "source": "miniprogram" };
+
+
+
+  // let sign = uni.getStorageSync('sign');
+  // if (sign) {
+  // 	header.sign = sign
+  // }
+
+  params.header = header;
+
+  return new Promise(function (reslove, reject) {
+    uni.request(Object.assign({}, params, {
+      success: function success(_ref) {var data = _ref.data;
+        reslove(data);
+      },
+      fail: function fail() {
+        console.error('请求失败');
+        reject('网络出小差了，请稍后再试~');
+      } }));
+
+  });
+};exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
+
+/***/ }),
+
+/***/ 37:
+/*!***************************************************************************!*\
+  !*** C:/Users/30696/Documents/HBuilderProjects/Motorcycle/utils/index.js ***!
+  \***************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });exports.random = void 0;var random = function random(a, b) {
+  return Math.floor(Math.random() * (a - b) + b);
+};exports.random = random;
 
 /***/ }),
 
@@ -8746,7 +8853,7 @@ function resolveLocaleChain(locale) {
 
 /***/ }),
 
-/***/ 57:
+/***/ 52:
 /*!****************************************************************************************************************!*\
   !*** C:/Users/30696/Documents/HBuilderProjects/Motorcycle/uni_modules/uni-icons/components/uni-icons/icons.js ***!
   \****************************************************************************************************************/

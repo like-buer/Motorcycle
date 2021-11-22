@@ -17,12 +17,6 @@
 			"style": {
 				"navigationBarTitleText": "练习"
 			}
-		},
-		{
-			"path": "pages/newindex/index",
-			"style": {
-				"navigationBarTitleText": "练习"
-			}
 		}
 	],
 	"globalStyle": {

@@ -63,6 +63,8 @@
 	import {
 		AnswerOption
 	} from '@/config/config.js'
+	
+	import api from '@/utils/api.js'
 	export default {
 		data() {
 			return {
@@ -109,22 +111,9 @@
 		onLoad(options) {
 			this.current = Number(options.idx);
 			this.answerList = new Array(this.questionnum).fill([])
-			// if (uni.getStorageSync('question1')) {
-			// 	this.questionList = JSON.parse(uni.getStorageSync('question1'));
-			// 	return;
-			// }
-
-			// this.questionList = new Array(50).fill(null)
 			this.starIdx = Number(options.idx) - this.size;
 			this.endIdx = Number(options.idx) + this.size;
-			// this.getList(this.starIdx <= 1 ? 1 : this.starIdx, this.endIdx >= this.questionnum ? this.questionnum : this.endIdx);
 			this.getList(this.starIdx, this.endIdx);
-			
-			// .then(() => {
-			// 	this.getList(0, this.starIdx).then(() => {
-			// 		this.getList(this.endIdx + 1, this.endIdx + 1 + this.size)
-			// 	})
-			// });
 		},
 		methods: {
 			changeSwiperEnd(e) {
@@ -132,21 +121,17 @@
 			},
 			changeSwiper(e) {
 				this.submitOption = [];
-				console.log(e.target)
 				if(e.target.source === 'touch') {
 					clearTimeout(this.awaitNextQuestion);
 					this.awaitNextQuestion = null;
 					return;
 				}
-				// this.current = e.target.current;
 			},
 			// 答题
 			checkAnswer(idx, index) {
 				if (this.submitOption.length) return
-
 				let _option = this.questionList[idx].Options;
 				this.checkOption.push(index)
-
 				if (_option.length > 1) return;
 				this.submitAnswer(idx);
 			},
@@ -193,50 +178,32 @@
 				endIdx = endIdx >= this.questionnum ? this.questionnum : endIdx;
 				this.starIdx = starIdx;
 				this.endIdx = endIdx;
-				return new Promise(reslove => {
-					uni.request({
-						url: 'http://47.98.213.156/Bandk/GetBanks',
-						data: {
-							PageIndex: starIdx,
-							PageSize: endIdx
-						},
-						success: (res) => {
-							if (res.statusCode === 200) {
-
-								let _arr = [...this.questionList]
-
-								let _data = JSON.parse(res.data.Data).map(item => {
-									let _answer = [];
-									try {
-										_answer = JSON.parse(item.Answer)
-									} catch (e) {
-										_answer = ['数据异常，请联系管理员']
-									}
-
-									item.Answer = _answer;
-									item.Options = JSON.parse(item.Options).map(_ => this
-										.AnswerOption
-										.findIndex(__ => __ === _));
-									return item;
-								});
-
-								_data.forEach((item, index) => {
-									_arr[starIdx + index - 1] = item;
-								})
-
-
-								console.log('data ===>', _data)
-
-								// this.current = this.starIdx;
-								this.questionList = _arr;
-
-								console.log(_arr)
-								reslove();
-								return;
-							}
+				
+				api.getQuestions({
+					PageIndex: starIdx,
+					PageSize: endIdx
+				}).then(res => {
+					console.log(res)
+					let _arr = [...this.questionList]
+					let _data = JSON.parse(res.Data).map(item => {
+						let _answer = [];
+						try {
+							_answer = JSON.parse(item.Answer)
+						} catch (e) {
+							_answer = ['数据异常，请联系管理员']
 						}
+					
+						item.Answer = _answer;
+						item.Options = JSON.parse(item.Options).map(_ => this
+							.AnswerOption
+							.findIndex(__ => __ === _));
+						return item;
 					});
-
+					
+					_data.forEach((item, index) => {
+						_arr[starIdx + index - 1] = item;
+					})
+					this.questionList = _arr;
 				})
 			}
 		}

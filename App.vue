@@ -1,5 +1,9 @@
 <script>
 	export default {
+
+		globalData: {
+			apiUrl: `http://47.98.213.156/`,
+		},
 		onLaunch: function() {
 			console.log('App Launch')
 		},
@@ -14,6 +18,6 @@
 
 <style>
 	/*每个页面公共css */
-	
+
 	@import './common/uni.css';
 </style>

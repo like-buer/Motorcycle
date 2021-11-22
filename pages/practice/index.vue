@@ -1,100 +1,184 @@
 <template>
-	<view class="content">
+	<view class="">
+
 		<template v-if="questionList.length">
-			<view class="practive">
-				<view class="question">
-					{{ idx + 1 }}/400、{{ questionList[idx].BankName }}
-				</view>
-				<view class="pic" v-if="questionList[idx].Imgurl">
-					<image src="http://jiakao-tiku.image.mucang.cn/tiku-media/2021/0729/210645/image-122.jpg"
-						mode="heightFix"></image>
-				</view>
-				<view class="options">
-					<view class="options--item" :class="{
-					error: submitOption.includes(index) && !questionList[idx].Options.includes(index),
-					success: submitOption.includes(index) && questionList[idx].Options.includes(index)
-				}" @click="checkAnswer(index)" v-for="(item,index) in questionList[idx].Answer" :key="`answer_${index}`">
-						{{ AnswerOption[index] }}、{{ item }}
+			<swiper class="swiper" :current="current" @change="changeSwiper" @animationfinish="changeSwiperEnd"
+				disable-touch>
+				<swiper-item v-for="(item,idx) in questionList">
+					<view class="content" v-if="item">
+						<view class="practive">
+							<view class="question">
+								{{ idx + 1 }}/{{ questionnum }}--{{ questionList.length }}、{{ item.BankName }}
+							</view>
+							<view class="pic" v-if="item.Imgurl">
+								<image
+									src="http://jiakao-tiku.image.mucang.cn/tiku-media/2021/0729/210645/image-122.jpg"
+									mode="heightFix"></image>
+							</view>
+							<view class="options">
+								<view class="options--item" :class="{
+								error: answerList[idx].includes(index) && !item.Options.includes(index),
+								success: answerList[idx].includes(index) && item.Options.includes(index)
+							}" @click="checkAnswer(idx,index)" v-for="(_answer,index) in item.Answer" :key="item">
+									{{ AnswerOption[index] }}、{{ _answer }}
 
-						<view class="status">
-							<image src="@/static/success.png" mode=""
-								v-if="submitOption.includes(index) && questionList[idx].Options.includes(index)">
-							</image>
-							<image src="@/static/error.png" mode=""
-								v-if="submitOption.includes(index) && !questionList[idx].Options.includes(index)">
-							</image>
+									<view class="status">
+										<image src="@/static/success.png" mode=""
+											v-if="answerList[idx].includes(index) && item.Options.includes(index)">
+										</image>
+										<image src="@/static/error.png" mode=""
+											v-if="answerList[idx].includes(index) && !item.Options.includes(index)">
+										</image>
+									</view>
+								</view>
+							</view>
+
+							<view class="answer" v-if="answerList[idx].length">
+								正确答案：{{ item.Options.map(_ => AnswerOption[_]).join('、')   }}
+							</view>
 						</view>
+						<template v-if="answerList[idx].length">
+							<view class="gap"></view>
+							<view class="remarks">
+								<view class="analysis">
+									<text>解析</text>
+								</view>
+								<view class="text" v-html="item.Analysis"></view>
+							</view>
+						</template>
 					</view>
-				</view>
-
-				<view class="answer" v-if="isAnalysis">
-					正确答案：{{ questionList[idx].Options.map(_ => AnswerOption[_]).join('、')   }}
-				</view>
-			</view>
-			<template v-if="isAnalysis">
-				<view class="gap"></view>
-				<view class="remarks">
-					<view class="analysis">
-						<text>解析</text>
+					<view v-else>
+						数据加载中...{{ current + 1 }}
 					</view>
-					<view class="text" v-html="questionList[idx].Analysis"></view>
-				</view>
-			</template>
+				</swiper-item>
+			</swiper>
 		</template>
+		<view class="loading" v-else>
+			数据加载中
+		</view>
 	</view>
 </template>
+
 
 <script>
 	import {
 		AnswerOption
 	} from '@/config/config.js'
+
+	import api from '@/utils/api.js'
+	import {
+		random
+	} from '@/utils/index.js'
 	export default {
 		data() {
 			return {
+				option: {},
+				// ===========
+				starIdx: 0,
+				endIdx: 20,
+				size: 20,
+				// ===========
+
 				AnswerOption,
-				idx: 1,
-				questionList: [],
+
+
+				current: 0,
+				questionnum: 400,
+				questionList: [], // 当前的题目列表
+				answerList: [], // 用户的答案列表
 
 				checkOption: [],
 				submitOption: [],
 
 
-				isAnalysis: false
+				awaitNextQuestion: null, // 下一题的定时器
 			}
 		},
-		onLoad() {
-			this.getList();
+		watch: {
+			current(val) {
+				
+				// 限制总题数
+				if(this.option.sum) return;
+				
+				
+				if (this.endIdx >= this.questionnum) return;
+				if (this.starIdx <= 1) return;
+				if (this.questionList.filter(_ => !!_).length) {
+					if (!this.questionList[val + 3]) {
+						console.log('下一页')
+						this.getList(this.endIdx + 1, this.endIdx + this.size);
+					}
+					if (!this.questionList[val - 3]) {
+						console.log('上一页')
+						this.getList(this.starIdx - this.size, this.starIdx - 1);
+					}
+				}
+			}
+		},
+		onLoad(options) {
+			this.option = options;
+			let {
+				idx,
+				sum
+			} = options;
+
+			// 指定題目的练习
+			if (sum) {
+				this.current = 0;
+				this.answerList = new Array(Number(sum)).fill([])
+				let _idx = random(0, this.questionnum - Number(sum));
+				this.starIdx = Number(_idx);
+				this.endIdx = this.starIdx + Number(sum) - 1;
+				this.getList(this.starIdx, this.endIdx, true);
+				return;
+			}
+			this.current = Number(idx);
+			this.answerList = new Array(this.questionnum).fill([])
+			this.starIdx = Number(idx) - this.size;
+			this.endIdx = Number(idx) + this.size;
+			this.getList(this.starIdx, this.endIdx);
 		},
 		methods: {
+			changeSwiperEnd(e) {
+				this.current = e.target.current;
+			},
+			changeSwiper(e) {
+				this.submitOption = [];
+				if (e.target.source === 'touch') {
+					clearTimeout(this.awaitNextQuestion);
+					this.awaitNextQuestion = null;
+					return;
+				}
+			},
 			// 答题
-			checkAnswer(idx) {
+			checkAnswer(idx, index) {
 				if (this.submitOption.length) return
 				let _option = this.questionList[idx].Options;
-				this.checkOption.push(idx)
-
+				this.checkOption.push(index)
 				if (_option.length > 1) return;
-				console.log(this.checkOption)
-				this.submitAnswer();
+				this.submitAnswer(idx);
 			},
 			// 提交答案
-			submitAnswer() {
+			submitAnswer(idx) {
+				console.log('提交', idx)
 				this.submitOption = Array.from(new Set(this.checkOption)).sort((a, b) => a - b)
+				this.answerList[idx] = this.submitOption;
 				this.checkOption = [];
 
-				if (this.endNowAnswer()) {
-					console.log('回答正确')
-					setTimeout(() => {
-						this.nextQuestion();
+				if (this.checkTheAnswer(idx)) {
+					console.log('next question')
+					this.awaitNextQuestion = setTimeout(() => {
+						this.nextQuestion(idx);
 					}, 1000)
 				} else {
 					this.showAnalysis();
 				}
 			},
 			// 检查答案
-			endNowAnswer() {
-				if (this.submitOption.length !== this.questionList[this.idx].Options.length) return false;
+			checkTheAnswer(idx) {
+				if (this.submitOption.length !== this.questionList[idx].Options.length) return false;
 				let result = true;
-				this.questionList[this.idx].Options.forEach(item => {
+				this.questionList[idx].Options.forEach(item => {
 					if (!this.submitOption.includes(item)) {
 						result = false;
 					}
@@ -103,45 +187,66 @@
 			},
 			// 查看解析
 			showAnalysis() {
-				this.isAnalysis = true;
+				// this.isAnalysis = true;
+				console.log('預留查看解析')
 			},
 			// 下一题
-			nextQuestion() {
+			nextQuestion(idx) {
 				this.submitOption = [];
-				this.idx++;
+				this.current = idx + 1;
 			},
 			// 获取题库
-			getList() {
-				uni.request({
-					url: 'http://47.98.213.156/Bandk/GetBanks',
-					success: (res) => {
-						if (res.statusCode === 200) {
-							this.questionList = JSON.parse(res.data.Data).map(item => {
-								let _answer = [];
-								try {
-									_answer = JSON.parse(item.Answer)
-								} catch (e) {
-									_answer = ['数据异常，请联系管理员']
-								}
+			getList(starIdx, endIdx, bool) {
+				if (!bool) {
 
-								item.Answer = _answer;
-								item.Options = JSON.parse(item.Options).map(_ => this.AnswerOption
-									.findIndex(__ => __ === _));
-								console.log(item.Options)
-								return item;
-							});
-							console.log(this.questionList)
+					starIdx = starIdx <= 1 ? 1 : starIdx;
+					endIdx = endIdx >= this.questionnum ? this.questionnum : endIdx;
+					this.starIdx = starIdx;
+					this.endIdx = endIdx;
+				}
+
+				api.getQuestions({
+					PageIndex: starIdx,
+					PageSize: endIdx
+				}).then(res => {
+					console.log(res)
+					let _arr = [...this.questionList]
+					let _data = JSON.parse(res.Data).map(item => {
+						let _answer = [];
+						try {
+							_answer = JSON.parse(item.Answer)
+						} catch (e) {
+							_answer = ['数据异常，请联系管理员']
 						}
-					}
-				});
+
+						item.Answer = _answer;
+						item.Options = JSON.parse(item.Options).map(_ => this
+							.AnswerOption
+							.findIndex(__ => __ === _));
+						return item;
+					});
+
+					_data.forEach((item, index) => {
+						_arr[starIdx + index - 1] = item;
+					})
+					console.log(_arr.filter(_ => !!_), '======')
+					this.questionList = _arr.filter(_ => !!_);
+					console.log(this.questionList)
+				})
 			}
 		}
 	}
 </script>
 
-<style lang="less" scoped>
-	.content {
 
+<style lang="less" scoped>
+	/deep/ .swiper {
+		height: 100vh;
+		overflow-y: auto;
+		position: relative;
+	}
+
+	.content {
 		.answer {
 			font-weight: bold;
 			padding: 10rpx 20rpx;

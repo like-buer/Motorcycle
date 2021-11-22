@@ -28,7 +28,7 @@
 						<uni-icons type="cloud-download" size="26" color="#fff" />
 					</view>
 					<view class="title">
-						随机练习
+						未做题
 					</view>
 				</view>
 			</view>
@@ -43,12 +43,12 @@
 				</view>
 			</view>
 			<view class="item item--right">
-				<view class="start">
+				<view class="start" @click="toPractice(15)">
 					<view class="icon">
 						<uni-icons type="cloud-download" size="26" color="#fff" />
 					</view>
 					<view class="title">
-						随机练习
+						小练习
 					</view>
 				</view>
 
@@ -57,7 +57,7 @@
 						<uni-icons type="cloud-download" size="26" color="#fff" />
 					</view>
 					<view class="title">
-						随机练习
+						易错巩固
 					</view>
 				</view>
 			</view>
@@ -75,7 +75,6 @@
 				// interval: 2000,
 				// duration: 500,
 
-
 				items: ['科目一', '科目四'],
 				current: 0,
 				activeColor: '#007aff',
@@ -85,9 +84,17 @@
 		onLoad() {
 		},
 		methods: {
-			toPractice() {
+			toPractice(num) {
+				
+				
+				if(typeof num === 'number') {
+					uni.navigateTo({
+						url: `/pages/practice/index?sum=${num}`
+					})
+					return;
+				}
 				uni.navigateTo({
-					url: '/pages/newindex/index?idx=16'
+					url: '/pages/practice/index?idx=0'
 				})
 			},
 			// tab 切换

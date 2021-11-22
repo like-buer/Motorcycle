@@ -1,3 +1,9 @@
+
+.data-v-3ef4ae92 .swiper {
+  height: 100vh;
+  overflow-y: auto;
+  position: relative;
+}
 .content .answer.data-v-3ef4ae92 {
   font-weight: bold;
   padding: 10rpx 20rpx;
