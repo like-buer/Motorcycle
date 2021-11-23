@@ -5,8 +5,8 @@ import request from './request.js';
 const api = {
 	getQuestions(data) {
 		return request({
-			url: '/Bandk/GetBanks',
-			method: 'get',
+			url: '/api/Bandk/GetBanks',
+			method: 'post',
 			type: 'application/json',
 			data
 		})

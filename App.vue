@@ -2,7 +2,7 @@
 	export default {
 
 		globalData: {
-			apiUrl: `http://47.98.213.156/`,
+			apiUrl: `http://47.98.213.156`,
 		},
 		onLaunch: function() {
 			console.log('App Launch')

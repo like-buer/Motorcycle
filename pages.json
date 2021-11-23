@@ -26,11 +26,13 @@
 		"backgroundColor": "#F8F8F8"
 	},
   "tabBar": {
+		"color":"#939393",
+		"selectedColor":"#737373",
     "list": [{
       "pagePath": "pages/index/index",
       "text": "考证",
 			"iconPath": "static/tabbar/card.png",
-			"selectedIconPath":"static/tabbar/card_c.png"
+			"selectedIconPath":"static/tabbar/card_c.png"			
     }, {
       "pagePath": "pages/profile/index",
       "text": "我的",

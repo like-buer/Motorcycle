@@ -105,9 +105,6 @@ try {
   components = {
     uniSegmentedControl: function() {
       return __webpack_require__.e(/*! import() | uni_modules/uni-segmented-control/components/uni-segmented-control/uni-segmented-control */ "uni_modules/uni-segmented-control/components/uni-segmented-control/uni-segmented-control").then(__webpack_require__.bind(null, /*! @/uni_modules/uni-segmented-control/components/uni-segmented-control/uni-segmented-control.vue */ 40))
-    },
-    uniIcons: function() {
-      return Promise.all(/*! import() | uni_modules/uni-icons/components/uni-icons/uni-icons */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uni-icons/components/uni-icons/uni-icons")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uni-icons/components/uni-icons/uni-icons.vue */ 47))
     }
   }
 } catch (e) {
@@ -229,6 +226,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 var _default =
 {
   data: function data() {
@@ -248,17 +249,18 @@ var _default =
   onLoad: function onLoad() {
   },
   methods: {
-    toPractice: function toPractice(num) {
+    toPractice: function toPractice(num, title) {
 
+      var _querystr = "&type=".concat(1, "&title=", title);
 
-      if (typeof num === 'number') {
+      if (typeof num === 'number' && !!num) {
         uni.navigateTo({
-          url: "/pages/practice/index?sum=".concat(num) });
+          url: "/pages/practice/index?sum=".concat(num).concat(_querystr) });
 
         return;
       }
       uni.navigateTo({
-        url: '/pages/practice/index?idx=0' });
+        url: "/pages/practice/index?idx=0".concat(_querystr) });
 
     },
     // tab 切换

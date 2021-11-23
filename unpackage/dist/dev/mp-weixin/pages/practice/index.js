@@ -180,7 +180,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
 
 
 
@@ -282,7 +282,6 @@ var _index = __webpack_require__(/*! @/utils/index.js */ 37);function _interopRe
       // 限制总题数
       if (this.option.sum) return;
 
-
       if (this.endIdx >= this.questionnum) return;
       if (this.starIdx <= 1) return;
       if (this.questionList.filter(function (_) {return !!_;}).length) {
@@ -298,11 +297,16 @@ var _index = __webpack_require__(/*! @/utils/index.js */ 37);function _interopRe
     } },
 
   onLoad: function onLoad(options) {
-    this.option = options;var
+    this.option = options;
+    console.log(options);var
 
     idx =
 
-    options.idx,sum = options.sum;
+
+
+    options.idx,sum = options.sum,type = options.type,title = options.title;
+
+    uni.setNavigationBarTitle({ title: title });
 
     // 指定題目的练习
     if (sum) {
@@ -389,11 +393,12 @@ var _index = __webpack_require__(/*! @/utils/index.js */ 37);function _interopRe
 
       _api.default.getQuestions({
         PageIndex: starIdx,
-        PageSize: endIdx }).
+        PageSize: endIdx,
+        BanksType: Number(this.option.type) }).
       then(function (res) {
         console.log(res);
         var _arr = _toConsumableArray(_this3.questionList);
-        var _data = JSON.parse(res.Data).map(function (item) {
+        var _data = JSON.parse(res.Data.Data).map(function (item) {
           var _answer = [];
           try {
             _answer = JSON.parse(item.Answer);
@@ -416,6 +421,7 @@ var _index = __webpack_require__(/*! @/utils/index.js */ 37);function _interopRe
         console.log(_this3.questionList);
       });
     } } };exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
 

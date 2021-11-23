@@ -100,7 +100,6 @@
 				// 限制总题数
 				if(this.option.sum) return;
 				
-				
 				if (this.endIdx >= this.questionnum) return;
 				if (this.starIdx <= 1) return;
 				if (this.questionList.filter(_ => !!_).length) {
@@ -117,10 +116,15 @@
 		},
 		onLoad(options) {
 			this.option = options;
+			console.log(options)
 			let {
 				idx,
-				sum
+				sum,
+				type,
+				title
 			} = options;
+			
+			uni.setNavigationBarTitle({ title });
 
 			// 指定題目的练习
 			if (sum) {
@@ -207,11 +211,12 @@
 
 				api.getQuestions({
 					PageIndex: starIdx,
-					PageSize: endIdx
+					PageSize: endIdx,
+					BanksType: Number(this.option.type)
 				}).then(res => {
 					console.log(res)
 					let _arr = [...this.questionList]
-					let _data = JSON.parse(res.Data).map(item => {
+					let _data = JSON.parse(res.Data.Data).map(item => {
 						let _answer = [];
 						try {
 							_answer = JSON.parse(item.Answer)
@@ -244,6 +249,10 @@
 		height: 100vh;
 		overflow-y: auto;
 		position: relative;
+		
+		swiper-item {
+			overflow-y: auto;
+		}
 	}
 
 	.content {

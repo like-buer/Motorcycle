@@ -13,7 +13,7 @@ export default __self => {
 
 	// 定义请求实体类
 	let params = {
-		timeout: 10000, // 超时时间
+		// timeout: 10000, // 超时时间
 	}
 
 	let { url, method, type, data, query, file, inData } = __self;

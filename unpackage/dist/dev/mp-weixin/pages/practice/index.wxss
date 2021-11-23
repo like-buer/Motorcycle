@@ -4,6 +4,9 @@
   overflow-y: auto;
   position: relative;
 }
+.data-v-3ef4ae92 .swiper swiper-item {
+  overflow-y: auto;
+}
 .content .answer.data-v-3ef4ae92 {
   font-weight: bold;
   padding: 10rpx 20rpx;

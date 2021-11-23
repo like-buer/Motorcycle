@@ -8286,8 +8286,8 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 var api = {
   getQuestions: function getQuestions(data) {
     return (0, _request.default)({
-      url: '/Bandk/GetBanks',
-      method: 'get',
+      url: '/api/Bandk/GetBanks',
+      method: 'post',
       type: 'application/json',
       data: data });
 
@@ -8322,7 +8322,7 @@ function _default(__self) {
 
   // 定义请求实体类
   var params = {
-    timeout: 10000 // 超时时间
+    // timeout: 10000, // 超时时间
   };var
 
   url = __self.url,method = __self.method,type = __self.type,data = __self.data,query = __self.query,file = __self.file,inData = __self.inData;
