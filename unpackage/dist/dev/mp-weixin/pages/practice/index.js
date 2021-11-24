@@ -278,10 +278,8 @@ var _index = __webpack_require__(/*! @/utils/index.js */ 37);function _interopRe
   },
   watch: {
     current: function current(val) {
-
       // 限制总题数
       if (this.option.sum) return;
-
       if (this.endIdx >= this.questionnum) return;
       if (this.starIdx <= 1) return;
       if (this.questionList.filter(function (_) {return !!_;}).length) {
@@ -311,11 +309,12 @@ var _index = __webpack_require__(/*! @/utils/index.js */ 37);function _interopRe
     // 指定題目的练习
     if (sum) {
       this.current = 0;
+      this.questionnum = sum;
       this.answerList = new Array(Number(sum)).fill([]);
-      var _idx = (0, _index.random)(0, this.questionnum - Number(sum));
-      this.starIdx = Number(_idx);
-      this.endIdx = this.starIdx + Number(sum) - 1;
-      this.getList(this.starIdx, this.endIdx, true);
+      // let _idx = random(0, this.questionnum - Number(sum));
+      // this.starIdx = Number(_idx);
+      // this.endIdx = this.starIdx + Number(sum) - 1;
+      this.getList(1, 1, sum);
       return;
     }
     this.current = Number(idx);
@@ -382,9 +381,8 @@ var _index = __webpack_require__(/*! @/utils/index.js */ 37);function _interopRe
       this.current = idx + 1;
     },
     // 获取题库
-    getList: function getList(starIdx, endIdx, bool) {var _this3 = this;
-      if (!bool) {
-
+    getList: function getList(starIdx, endIdx, sum) {var _this3 = this;
+      if (!sum) {
         starIdx = starIdx <= 1 ? 1 : starIdx;
         endIdx = endIdx >= this.questionnum ? this.questionnum : endIdx;
         this.starIdx = starIdx;
@@ -394,11 +392,15 @@ var _index = __webpack_require__(/*! @/utils/index.js */ 37);function _interopRe
       _api.default.getQuestions({
         PageIndex: starIdx,
         PageSize: endIdx,
-        BanksType: Number(this.option.type) }).
+        BanksType: Number(this.option.type),
+        RandomnNum: Number(sum) }).
       then(function (res) {
-        console.log(res);
+        if (!sum) {
+          _this3.questionnum = res.Count;
+        }
+
         var _arr = _toConsumableArray(_this3.questionList);
-        var _data = JSON.parse(res.Data.Data).map(function (item) {
+        var _data = res.Data.map(function (item, index) {
           var _answer = [];
           try {
             _answer = JSON.parse(item.Answer);

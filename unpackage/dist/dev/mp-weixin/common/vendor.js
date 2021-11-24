@@ -941,7 +941,7 @@ function initData(vueOptions, context) {
     try {
       data = data.call(context); // 支持 Vue.prototype 上挂的数据
     } catch (e) {
-      if (Object({"VUE_APP_NAME":"Motorcycle","VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG) {
+      if (Object({"NODE_ENV":"development","VUE_APP_NAME":"Motorcycle","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG) {
         console.warn('根据 Vue 的 data 函数初始化小程序 data 失败，请尽量确保 data 函数中不访问 vm 对象，否则可能影响首次数据渲染速度。', data);
       }
     }
@@ -7737,7 +7737,7 @@ function type(obj) {
 
 function flushCallbacks$1(vm) {
     if (vm.__next_tick_callbacks && vm.__next_tick_callbacks.length) {
-        if (Object({"VUE_APP_NAME":"Motorcycle","VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG) {
+        if (Object({"NODE_ENV":"development","VUE_APP_NAME":"Motorcycle","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG) {
             var mpInstance = vm.$scope;
             console.log('[' + (+new Date) + '][' + (mpInstance.is || mpInstance.route) + '][' + vm._uid +
                 ']:flushCallbacks[' + vm.__next_tick_callbacks.length + ']');
@@ -7758,14 +7758,14 @@ function nextTick$1(vm, cb) {
     //1.nextTick 之前 已 setData 且 setData 还未回调完成
     //2.nextTick 之前存在 render watcher
     if (!vm.__next_tick_pending && !hasRenderWatcher(vm)) {
-        if(Object({"VUE_APP_NAME":"Motorcycle","VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG){
+        if(Object({"NODE_ENV":"development","VUE_APP_NAME":"Motorcycle","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG){
             var mpInstance = vm.$scope;
             console.log('[' + (+new Date) + '][' + (mpInstance.is || mpInstance.route) + '][' + vm._uid +
                 ']:nextVueTick');
         }
         return nextTick(cb, vm)
     }else{
-        if(Object({"VUE_APP_NAME":"Motorcycle","VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG){
+        if(Object({"NODE_ENV":"development","VUE_APP_NAME":"Motorcycle","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG){
             var mpInstance$1 = vm.$scope;
             console.log('[' + (+new Date) + '][' + (mpInstance$1.is || mpInstance$1.route) + '][' + vm._uid +
                 ']:nextMPTick');
@@ -7851,7 +7851,7 @@ var patch = function(oldVnode, vnode) {
     });
     var diffData = this.$shouldDiffData === false ? data : diff(data, mpData);
     if (Object.keys(diffData).length) {
-      if (Object({"VUE_APP_NAME":"Motorcycle","VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG) {
+      if (Object({"NODE_ENV":"development","VUE_APP_NAME":"Motorcycle","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG) {
         console.log('[' + (+new Date) + '][' + (mpInstance.is || mpInstance.route) + '][' + this._uid +
           ']差量更新',
           JSON.stringify(diffData));
@@ -8291,6 +8291,14 @@ var api = {
       type: 'application/json',
       data: data });
 
+  },
+  login: function login(data) {
+    return (0, _request.default)({
+      url: '/api/HttpRequets/GetLoginCode',
+      method: 'post',
+      type: 'application/json',
+      data: data });
+
   } };var _default = _objectSpread({},
 
 
@@ -8322,7 +8330,7 @@ function _default(__self) {
 
   // 定义请求实体类
   var params = {
-    // timeout: 10000, // 超时时间
+    timeout: 10000 // 超时时间
   };var
 
   url = __self.url,method = __self.method,type = __self.type,data = __self.data,query = __self.query,file = __self.file,inData = __self.inData;
@@ -8351,9 +8359,15 @@ function _default(__self) {
   return new Promise(function (reslove, reject) {
     uni.request(Object.assign({}, params, {
       success: function success(_ref) {var data = _ref.data;
-        reslove(data);
+        console.log(data);
+        if (data.Data) {
+          reslove(data.Data);
+          return;
+        }
+        reject(data);
       },
-      fail: function fail() {
+      fail: function fail(err) {
+        console.log(err);
         console.error('请求失败');
         reject('网络出小差了，请稍后再试~');
       } }));
@@ -8853,7 +8867,7 @@ function resolveLocaleChain(locale) {
 
 /***/ }),
 
-/***/ 52:
+/***/ 66:
 /*!****************************************************************************************************************!*\
   !*** C:/Users/30696/Documents/HBuilderProjects/Motorcycle/uni_modules/uni-icons/components/uni-icons/icons.js ***!
   \****************************************************************************************************************/

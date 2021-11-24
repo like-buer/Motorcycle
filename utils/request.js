@@ -13,7 +13,7 @@ export default __self => {
 
 	// 定义请求实体类
 	let params = {
-		// timeout: 10000, // 超时时间
+		timeout: 10000, // 超时时间
 	}
 
 	let { url, method, type, data, query, file, inData } = __self;
@@ -42,9 +42,15 @@ export default __self => {
 	return new Promise((reslove, reject) => {
 		uni.request(Object.assign({}, params, {
 			success: ({ data }) => {
-				reslove(data)
+				console.log(data)
+				if(data.Data) {
+					reslove(data.Data)
+					return;
+				}
+				reject(data)
 			},
-			fail: () => {
+			fail: err => {
+				console.log(err)
 				console.error('请求失败')
 				reject('网络出小差了，请稍后再试~');
 			}

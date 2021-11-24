@@ -10,6 +10,14 @@ const api = {
 			type: 'application/json',
 			data
 		})
+	},
+	login(data) {
+		return request({
+			url: '/api/HttpRequets/GetLoginCode',
+			method: 'post',
+			type: 'application/json',
+			data
+		})
 	}
 }
 

@@ -88,9 +88,8 @@
 		onLoad() {
 		},
 		methods: {
-			toPractice(num, title) {		
-				
-				let _querystr = `&type=${1}&title=${title}`
+			toPractice(num, title) {				
+				let _querystr = `&type=${this.current ? 4 : 1}&title=${title}`
 				
 				if(typeof num === 'number' && !!num) {
 					uni.navigateTo({

@@ -250,8 +250,7 @@ var _default =
   },
   methods: {
     toPractice: function toPractice(num, title) {
-
-      var _querystr = "&type=".concat(1, "&title=", title);
+      var _querystr = "&type=".concat(this.current ? 4 : 1, "&title=").concat(title);
 
       if (typeof num === 'number' && !!num) {
         uni.navigateTo({

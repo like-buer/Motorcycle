@@ -2,7 +2,8 @@
   "pages": [
     "pages/index/index",
     "pages/profile/index",
-    "pages/practice/index"
+    "pages/practice/index",
+    "pages/profile/login"
   ],
   "subPackages": [],
   "window": {

@@ -8,7 +8,7 @@
 					<view class="content" v-if="item">
 						<view class="practive">
 							<view class="question">
-								{{ idx + 1 }}/{{ questionnum }}--{{ questionList.length }}、{{ item.BankName }}
+								{{ idx + 1 }}/{{ questionnum }}、{{ item.BankName }}
 							</view>
 							<view class="pic" v-if="item.Imgurl">
 								<image
@@ -96,10 +96,8 @@
 		},
 		watch: {
 			current(val) {
-				
 				// 限制总题数
 				if(this.option.sum) return;
-				
 				if (this.endIdx >= this.questionnum) return;
 				if (this.starIdx <= 1) return;
 				if (this.questionList.filter(_ => !!_).length) {
@@ -129,11 +127,12 @@
 			// 指定題目的练习
 			if (sum) {
 				this.current = 0;
+				this.questionnum = sum;
 				this.answerList = new Array(Number(sum)).fill([])
-				let _idx = random(0, this.questionnum - Number(sum));
-				this.starIdx = Number(_idx);
-				this.endIdx = this.starIdx + Number(sum) - 1;
-				this.getList(this.starIdx, this.endIdx, true);
+				// let _idx = random(0, this.questionnum - Number(sum));
+				// this.starIdx = Number(_idx);
+				// this.endIdx = this.starIdx + Number(sum) - 1;
+				this.getList(1, 1, sum);
 				return;
 			}
 			this.current = Number(idx);
@@ -200,9 +199,8 @@
 				this.current = idx + 1;
 			},
 			// 获取题库
-			getList(starIdx, endIdx, bool) {
-				if (!bool) {
-
+			getList(starIdx, endIdx, sum) {
+				if (!sum) {
 					starIdx = starIdx <= 1 ? 1 : starIdx;
 					endIdx = endIdx >= this.questionnum ? this.questionnum : endIdx;
 					this.starIdx = starIdx;
@@ -212,11 +210,15 @@
 				api.getQuestions({
 					PageIndex: starIdx,
 					PageSize: endIdx,
-					BanksType: Number(this.option.type)
+					BanksType: Number(this.option.type),
+					RandomnNum: Number(sum)
 				}).then(res => {
-					console.log(res)
+					if(!sum) {
+						this.questionnum = res.Count;
+					}
+					
 					let _arr = [...this.questionList]
-					let _data = JSON.parse(res.Data.Data).map(item => {
+					let _data = res.Data.map((item,index) => {
 						let _answer = [];
 						try {
 							_answer = JSON.parse(item.Answer)

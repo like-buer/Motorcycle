@@ -8,6 +8,10 @@
 			</view>
 		</view>
 
+		<button type="default" open-type="getPhoneNumber" @getphonenumber="getphonenumber">获取用户信息</button>
+
+		<button type="default" @click="getCode">code</button>
+
 		<view class="gap"></view>
 
 		<uni-list>
@@ -32,6 +36,7 @@
 </template>
 
 <script>
+	import api from '@/utils/api.js'
 	export default {
 		data() {
 			return {
@@ -42,22 +47,56 @@
 
 		},
 		methods: {
-			// 用户登录
-			toLogin() {
+			getphonenumber(e) {
+				let { iv, encryptedData } = e.detail;
+				
+				uni.login({
+					provider: 'weixin',
+					success: ({code}) => {
+						console.log({ iv, encryptedData, js_code: code })
+						// return;
+						api.login({ iv, encryptedData, js_code: code }).then(res => {
+							console.log(res)
+						}).catch(err => {
+							console.log(err)
+						})
+					}
+				})
+				
+			},
+			getCode() {
 				uni.login({
 					provider: 'weixin',
 					success: (res) => {
 						console.log(res);
-						// 获取用户信息
-						uni.getUserInfo({
-							provider: 'weixin',
-							success: info => {
-								console.log(info)
-								// console.log('用户昵称为：' + info.userInfo.nickName);
-							}
-						});
 					}
-				});
+				})
+			},
+			// 用户登录
+			toLogin() {
+				// uni.login({
+				// 	provider: 'weixin',
+				// 	success: (res) => {
+				// 		console.log(res);
+				// 		// 获取用户信息
+				// 		uni.getUserProfile({
+				// 			// provider: 'weixin',
+				// 			desc: '完善会员信息',
+				// 			success: info => {
+				// 				console.log(info)
+				// 				// console.log('用户昵称为：' + info.userInfo.nickName);
+				// 			}
+				// 		});
+				// 	}
+				// });
+
+
+				uni.getUserProfile({
+					desc: '用于注册完善个人资料',
+					success(e) {
+						console.log(e)
+					}
+				})
 			}
 		}
 	}

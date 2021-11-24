@@ -1,31 +1,27 @@
 {
-  "description": "项目配置文件。",
-  "packOptions": {
-    "ignore": []
-  },
-  "setting": {
-    "urlCheck": false
-  },
-  "compileType": "miniprogram",
-  "libVersion": "",
-  "appid": "wx1a9f923d9fbb94c4",
-  "projectname": "Motorcycle",
-  "condition": {
-    "search": {
-      "current": -1,
-      "list": []
+    "description": "项目配置文件。",
+    "packOptions": {
+        "ignore": []
     },
-    "conversation": {
-      "current": -1,
-      "list": []
+    "setting": {
+        "urlCheck": false
     },
-    "game": {
-      "current": -1,
-      "list": []
-    },
-    "miniprogram": {
-      "current": -1,
-      "list": []
+    "compileType": "miniprogram",
+    "libVersion": "",
+    "appid": "wx719be0792d29d50f",
+    "projectname": "Motorcycle",
+    "condition": {
+        "search": {
+            "list": []
+        },
+        "conversation": {
+            "list": []
+        },
+        "game": {
+            "list": []
+        },
+        "miniprogram": {
+            "list": []
+        }
     }
-  }
 }

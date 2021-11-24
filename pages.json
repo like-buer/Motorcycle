@@ -17,6 +17,12 @@
 			"style": {
 				"navigationBarTitleText": "练习"
 			}
+		},
+		{
+			"path": "pages/profile/login",
+			"style": {
+				"navigationBarTitleText": "登录"
+			}
 		}
 	],
 	"globalStyle": {

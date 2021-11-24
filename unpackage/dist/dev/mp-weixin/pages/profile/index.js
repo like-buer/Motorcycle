@@ -96,10 +96,10 @@ var components
 try {
   components = {
     uniList: function() {
-      return __webpack_require__.e(/*! import() | uni_modules/uni-list/components/uni-list/uni-list */ "uni_modules/uni-list/components/uni-list/uni-list").then(__webpack_require__.bind(null, /*! @/uni_modules/uni-list/components/uni-list/uni-list.vue */ 55))
+      return __webpack_require__.e(/*! import() | uni_modules/uni-list/components/uni-list/uni-list */ "uni_modules/uni-list/components/uni-list/uni-list").then(__webpack_require__.bind(null, /*! @/uni_modules/uni-list/components/uni-list/uni-list.vue */ 47))
     },
     uniListItem: function() {
-      return __webpack_require__.e(/*! import() | uni_modules/uni-list/components/uni-list-item/uni-list-item */ "uni_modules/uni-list/components/uni-list-item/uni-list-item").then(__webpack_require__.bind(null, /*! @/uni_modules/uni-list/components/uni-list-item/uni-list-item.vue */ 62))
+      return __webpack_require__.e(/*! import() | uni_modules/uni-list/components/uni-list-item/uni-list-item */ "uni_modules/uni-list/components/uni-list-item/uni-list-item").then(__webpack_require__.bind(null, /*! @/uni_modules/uni-list/components/uni-list-item/uni-list-item.vue */ 54))
     }
   }
 } catch (e) {
@@ -156,64 +156,103 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0; //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-var _default =
-{
-  data: function data() {
-    return {
-      title: 'Hello' };
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
 
-  },
-  onLoad: function onLoad() {
 
-  },
-  methods: {
-    // 用户登录
-    toLogin: function toLogin() {
-      uni.login({
-        provider: 'weixin',
-        success: function success(res) {
-          console.log(res);
-          // 获取用户信息
-          uni.getUserInfo({
-            provider: 'weixin',
-            success: function success(info) {
-              console.log(info);
-              // console.log('用户昵称为：' + info.userInfo.nickName);
-            } });
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+var _api = _interopRequireDefault(__webpack_require__(/*! @/utils/api.js */ 35));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };} //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+var _default = { data: function data() {return { title: 'Hello' };}, onLoad: function onLoad() {}, methods: { getphonenumber: function getphonenumber(e) {var _e$detail = e.detail,iv = _e$detail.iv,encryptedData = _e$detail.encryptedData;uni.login({ provider: 'weixin', success: function success(_ref) {var code = _ref.code;console.log({ iv: iv, encryptedData: encryptedData, js_code: code }); // return;
+          _api.default.login({ iv: iv, encryptedData: encryptedData, js_code: code }).then(function (res) {console.log(res);}).catch(function (err) {console.log(err);});} });}, getCode: function getCode() {uni.login({ provider: 'weixin', success: function success(res) {console.log(res);} });}, // 用户登录
+    toLogin: function toLogin() {// uni.login({
+      // 	provider: 'weixin',
+      // 	success: (res) => {
+      // 		console.log(res);
+      // 		// 获取用户信息
+      // 		uni.getUserProfile({
+      // 			// provider: 'weixin',
+      // 			desc: '完善会员信息',
+      // 			success: info => {
+      // 				console.log(info)
+      // 				// console.log('用户昵称为：' + info.userInfo.nickName);
+      // 			}
+      // 		});
+      // 	}
+      // });
+
+      uni.getUserProfile({
+        desc: '用于注册完善个人资料',
+        success: function success(e) {
+          console.log(e);
         } });
 
     } } };exports.default = _default;
