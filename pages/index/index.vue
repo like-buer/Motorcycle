@@ -15,7 +15,7 @@
 			@clickItem="onClickItem" />
 		<view class="startList">
 			<view class="item item--left">
-				<view class="start">
+				<view class="start"  @click="toPractice(10, '随机练习')">
 					<view class="icon">
 						<image src="@/static/icon/icon06.png" mode=""></image>
 					</view>
@@ -23,24 +23,24 @@
 						随机练习
 					</view>
 				</view>
-				<view class="start">
+				<view class="start" @click="toPractice(50, '考前冲刺')">
 					<view class="icon">
 						<image src="@/static/icon/icon09.png" mode=""></image>
 					</view>
 					<view class="title">
-						考前冲刺（未做题）
+						考前冲刺
 					</view>
 				</view>
 			</view>
 			<view class="item item--center">
 				<view class="start order" @click="toPractice(0, '顺序练习')">
 					<view>顺序联系</view>
-					<view>0/400</view>
-					
+					<view v-if="current">{{ nowProp.LastQuestionNumTo4 }}/{{ nowProp.Banks4Count }}</view>
+					<view v-else>{{ nowProp.LastQuestionNumTo1 }}/{{ nowProp.Banks1Count }}</view>
 					<view class="bg1"></view>
 					<view class="bg2"></view>
 				</view>
-				<view class="start exam"  @click="toPractice(50, '模拟考试')">
+				<view class="start exam" @click="toPractice(50, '模拟考试')">
 					<view>模拟考试</view>
 					<!-- <view>仿真冲刺</view> -->
 				</view>
@@ -51,14 +51,13 @@
 						<image src="@/static/icon/icon10.png" mode=""></image>
 					</view>
 					<view class="title">
-						小练习
+						每日一练
 					</view>
 				</view>
 
-				<view class="start">
+				<view class="start" @click="toPractice(50, '易错巩固')">
 					<view class="icon">
-						
-							<image src="@/static/icon/icon05.png" mode=""></image>
+						<image src="@/static/icon/icon05.png" mode=""></image>
 					</view>
 					<view class="title">
 						易错巩固
@@ -70,6 +69,8 @@
 </template>
 
 <script>
+	import { mapGetters } from 'vuex'
+	import api from '@/utils/api.js'
 	export default {
 		data() {
 			return {
@@ -82,10 +83,19 @@
 				items: ['科目一', '科目四'],
 				current: 0,
 				activeColor: '#007aff',
-
+				
+				nowProp: {}
 			}
 		},
+		computed: {
+			...mapGetters(['token'])
+		},
 		onLoad() {
+			
+		},
+		onShow() {
+			this.$store.dispatch('user/getUserInfo')
+			this.getQuestion();
 		},
 		methods: {
 			toPractice(num, title) {				
@@ -101,10 +111,14 @@
 					url: `/pages/practice/index?idx=0${_querystr}`
 				})
 			},
+			// 获取题目配置信息
+			getQuestion(){
+				api.getQuestionConfig().then(res => {
+					this.nowProp = res.Data
+				})
+			},
 			// tab 切换
-			onClickItem({
-				currentIndex
-			}) {
+			onClickItem({ currentIndex }) {
 				this.current = currentIndex;
 			}
 		},

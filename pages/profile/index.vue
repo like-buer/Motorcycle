@@ -1,16 +1,13 @@
 <template>
 	<view class="content">
 		<view class="userinfo" @click="toLogin">
-			<image src="../../static/logo.png" mode="scaleToFill" class="pohoto"></image>
+			<image :src="userInfo.Imgurl" mode="scaleToFill" class="pohoto" v-if="userInfo.Imgurl"></image>
+			<image src="../../static/logo.png" mode="scaleToFill" class="pohoto" v-else></image>
 			<view class="info">
-				<view>点击登录</view>
+				<view>{{ token ? userInfo.Name : '点击登录'}}</view>
 				<view>你的学车之旅，我们一路陪伴~</view>
 			</view>
 		</view>
-
-		<button type="default" open-type="getPhoneNumber" @getphonenumber="getphonenumber">获取用户信息</button>
-
-		<button type="default" @click="getCode">code</button>
 
 		<view class="gap"></view>
 
@@ -36,6 +33,7 @@
 </template>
 
 <script>
+	import { mapGetters } from 'vuex'
 	import api from '@/utils/api.js'
 	export default {
 		data() {
@@ -43,59 +41,21 @@
 				title: 'Hello'
 			}
 		},
+		computed: {
+			...mapGetters(['token', 'userInfo'])
+		},
 		onLoad() {
 
 		},
 		methods: {
-			getphonenumber(e) {
-				let { iv, encryptedData } = e.detail;
-				
-				uni.login({
-					provider: 'weixin',
-					success: ({code}) => {
-						console.log({ iv, encryptedData, js_code: code })
-						// return;
-						api.login({ iv, encryptedData, js_code: code }).then(res => {
-							console.log(res)
-						}).catch(err => {
-							console.log(err)
-						})
-					}
-				})
-				
-			},
-			getCode() {
-				uni.login({
-					provider: 'weixin',
-					success: (res) => {
-						console.log(res);
-					}
-				})
-			},
 			// 用户登录
 			toLogin() {
-				// uni.login({
-				// 	provider: 'weixin',
-				// 	success: (res) => {
-				// 		console.log(res);
-				// 		// 获取用户信息
-				// 		uni.getUserProfile({
-				// 			// provider: 'weixin',
-				// 			desc: '完善会员信息',
-				// 			success: info => {
-				// 				console.log(info)
-				// 				// console.log('用户昵称为：' + info.userInfo.nickName);
-				// 			}
-				// 		});
-				// 	}
-				// });
-
-
-				uni.getUserProfile({
-					desc: '用于注册完善个人资料',
-					success(e) {
-						console.log(e)
-					}
+				if(this.token) {
+					this.$store.dispatch('user/getUserPofile')
+					return;
+				}
+				uni.navigateTo({
+					url: '/pages/profile/login'
 				})
 			}
 		}

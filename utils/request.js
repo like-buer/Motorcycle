@@ -28,7 +28,8 @@ export default __self => {
 	// 请求格式
 	let header = {
 		"content-type": type || 'application/json',
-		"source": "miniprogram"
+		"source": "miniprogram",
+		"auth": uni.getStorageSync('token') || ''
 	}
 	
 	
@@ -42,7 +43,6 @@ export default __self => {
 	return new Promise((reslove, reject) => {
 		uni.request(Object.assign({}, params, {
 			success: ({ data }) => {
-				console.log(data)
 				if(data.Data) {
 					reslove(data.Data)
 					return;

@@ -97,7 +97,7 @@
 		watch: {
 			current(val) {
 				// 限制总题数
-				if(this.option.sum) return;
+				if (this.option.sum) return;
 				if (this.endIdx >= this.questionnum) return;
 				if (this.starIdx <= 1) return;
 				if (this.questionList.filter(_ => !!_).length) {

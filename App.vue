@@ -1,6 +1,5 @@
 <script>
 	export default {
-
 		globalData: {
 			apiUrl: `http://47.98.213.156`,
 		},
