@@ -61,7 +61,7 @@ component.options.__file = "pages/index/index.vue"
 /*!*****************************************************************************************************************************!*\
   !*** C:/Users/30696/Documents/HBuilderProjects/Motorcycle/pages/index/index.vue?vue&type=template&id=57280228&scoped=true& ***!
   \*****************************************************************************************************************************/
-/*! no static exports found */
+/*! exports provided: render, staticRenderFns, recyclableRender, components */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -96,7 +96,7 @@ var components
 try {
   components = {
     uniSegmentedControl: function() {
-      return __webpack_require__.e(/*! import() | uni_modules/uni-segmented-control/components/uni-segmented-control/uni-segmented-control */ "uni_modules/uni-segmented-control/components/uni-segmented-control/uni-segmented-control").then(__webpack_require__.bind(null, /*! @/uni_modules/uni-segmented-control/components/uni-segmented-control/uni-segmented-control.vue */ 94))
+      return __webpack_require__.e(/*! import() | uni_modules/uni-segmented-control/components/uni-segmented-control/uni-segmented-control */ "uni_modules/uni-segmented-control/components/uni-segmented-control/uni-segmented-control").then(__webpack_require__.bind(null, /*! @/uni_modules/uni-segmented-control/components/uni-segmented-control/uni-segmented-control.vue */ 59))
     }
   }
 } catch (e) {
@@ -120,6 +120,31 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
+  if (!_vm._isMounted) {
+    _vm.e0 = function($event) {
+      return _vm.toPractice(10, "随机练习")
+    }
+
+    _vm.e1 = function($event) {
+      return _vm.toPractice(50, "考前冲刺")
+    }
+
+    _vm.e2 = function($event) {
+      return _vm.toPractice(0, "顺序练习")
+    }
+
+    _vm.e3 = function($event) {
+      return _vm.toPractice(50, "模拟考试")
+    }
+
+    _vm.e4 = function($event) {
+      return _vm.toPractice(15, "小练习")
+    }
+
+    _vm.e5 = function($event) {
+      return _vm.toPractice(50, "易错巩固")
+    }
+  }
 }
 var recyclableRender = false
 var staticRenderFns = []
@@ -224,35 +249,53 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+
+
+
+
+
+
 var _vuex = __webpack_require__(/*! vuex */ 13);
+
+
 var _api = _interopRequireDefault(__webpack_require__(/*! @/utils/api.js */ 15));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function ownKeys(object, enumerableOnly) {var keys = Object.keys(object);if (Object.getOwnPropertySymbols) {var symbols = Object.getOwnPropertySymbols(object);if (enumerableOnly) symbols = symbols.filter(function (sym) {return Object.getOwnPropertyDescriptor(object, sym).enumerable;});keys.push.apply(keys, symbols);}return keys;}function _objectSpread(target) {for (var i = 1; i < arguments.length; i++) {var source = arguments[i] != null ? arguments[i] : {};if (i % 2) {ownKeys(Object(source), true).forEach(function (key) {_defineProperty(target, key, source[key]);});} else if (Object.getOwnPropertyDescriptors) {Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));} else {ownKeys(Object(source)).forEach(function (key) {Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));});}}return target;}function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;}var _default =
 {
   data: function data() {
     return {
-      background: ['color1', 'color2', 'color3'],
       indicatorDots: true,
       autoplay: true,
-      // interval: 2000,
-      // duration: 500,
 
       items: ['科目一', '科目四'],
       current: 0,
       activeColor: '#007aff',
 
-      nowProp: {} };
+      nowProp: {
+        Banks1Count: 0,
+        Banks4Count: 0,
+        LastQuestionNumTo1: 0,
+        LastQuestionNumTo4: 0 },
+
+
+      ke1: 0,
+      ke2: 0 };
+
 
   },
   computed: _objectSpread({},
   (0, _vuex.mapGetters)(['token'])),
 
-  onLoad: function onLoad() {
-
-  },
   onShow: function onShow() {
+    this.ke1 = uni.getStorageSync('ke1');
+    this.ke2 = uni.getStorageSync('ke2');
     this.$store.dispatch('user/getUserInfo');
     this.getQuestion();
   },
   methods: {
+    changeSwiper: function changeSwiper(e) {
+      this.current = e.target.current;
+      console.log(this.current);
+    },
     toPractice: function toPractice(num, title) {
       var _querystr = "&type=".concat(this.current ? 4 : 1, "&title=").concat(title);
 
@@ -268,12 +311,28 @@ var _api = _interopRequireDefault(__webpack_require__(/*! @/utils/api.js */ 15))
     },
     // 获取题目配置信息
     getQuestion: function getQuestion() {var _this = this;
-      _api.default.getQuestionConfig().then(function (res) {
-        _this.nowProp = res.Data;
+      _api.default.getQuestionConfigNoLogin().then(function (res) {
+        console.log(res.Data, '============');var _res$Data =
+
+
+
+        res.Data,Banks1Count = _res$Data.Banks1Count,Banks4Count = _res$Data.Banks4Count;
+        _this.nowProp.Banks1Count = Banks1Count;
+        _this.nowProp.Banks4Count = Banks4Count;
+      });
+      _api.default.getQuestionConfig().then(function (res) {var _res$Data2 =
+
+
+
+        res.Data,LastQuestionNumTo1 = _res$Data2.LastQuestionNumTo1,LastQuestionNumTo4 = _res$Data2.LastQuestionNumTo4;
+        _this.nowProp.LastQuestionNumTo1 = LastQuestionNumTo1 || 0;
+        _this.nowProp.LastQuestionNumTo4 = LastQuestionNumTo4 || 0;
       });
     },
     // tab 切换
-    onClickItem: function onClickItem(_ref) {var currentIndex = _ref.currentIndex;
+    onClickItem: function onClickItem(_ref)
+
+    {var currentIndex = _ref.currentIndex;
       this.current = currentIndex;
     } },
 

@@ -93,7 +93,10 @@ __webpack_require__.r(__webpack_exports__);
 Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default =
 {
   globalData: {
-    apiUrl: "http://47.98.213.156" },
+    // apiUrl: `http://47.98.213.156`,
+    apiUrl: "http://api.buerblog.cn" },
+
+
 
   onLaunch: function onLaunch() {
     console.log('App Launch');

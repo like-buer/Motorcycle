@@ -13,95 +13,113 @@
 		</swiper>
 		<uni-segmented-control :current="current" :values="items" style-type="text" :active-color="activeColor"
 			@clickItem="onClickItem" />
-		<view class="startList">
-			<view class="item item--left">
-				<view class="start"  @click="toPractice(10, '随机练习')">
-					<view class="icon">
-						<image src="@/static/icon/icon06.png" mode=""></image>
-					</view>
-					<view class="title">
-						随机练习
-					</view>
-				</view>
-				<view class="start" @click="toPractice(50, '考前冲刺')">
-					<view class="icon">
-						<image src="@/static/icon/icon09.png" mode=""></image>
-					</view>
-					<view class="title">
-						考前冲刺
-					</view>
-				</view>
-			</view>
-			<view class="item item--center">
-				<view class="start order" @click="toPractice(0, '顺序练习')">
-					<view>顺序联系</view>
-					<view v-if="current">{{ nowProp.LastQuestionNumTo4 }}/{{ nowProp.Banks4Count }}</view>
-					<view v-else>{{ nowProp.LastQuestionNumTo1 }}/{{ nowProp.Banks1Count }}</view>
-					<view class="bg1"></view>
-					<view class="bg2"></view>
-				</view>
-				<view class="start exam" @click="toPractice(50, '模拟考试')">
-					<view>模拟考试</view>
-					<!-- <view>仿真冲刺</view> -->
-				</view>
-			</view>
-			<view class="item item--right">
-				<view class="start" @click="toPractice(15, '小练习')">
-					<view class="icon">
-						<image src="@/static/icon/icon10.png" mode=""></image>
-					</view>
-					<view class="title">
-						每日一练
-					</view>
-				</view>
 
-				<view class="start" @click="toPractice(50, '易错巩固')">
-					<view class="icon">
-						<image src="@/static/icon/icon05.png" mode=""></image>
+		<swiper class="swiper1" :current="current" @change="changeSwiper">
+			<swiper-item v-for="item in [0,1]">
+				<view class="startList">
+					<view class="item item--left">
+						<view class="start" @click="toPractice(10, '随机练习')">
+							<view class="icon">
+								<image src="@/static/icon/icon06.png" mode=""></image>
+							</view>
+							<view class="title">
+								随机练习
+							</view>
+						</view>
+						<view class="start" @click="toPractice(50, '考前冲刺')">
+							<view class="icon">
+								<image src="@/static/icon/icon09.png" mode=""></image>
+							</view>
+							<view class="title">
+								考前冲刺
+							</view>
+						</view>
 					</view>
-					<view class="title">
-						易错巩固
+					<view class="item item--center">
+						<view class="start order" @click="toPractice(0, '顺序练习')">
+							<view>顺序联系</view>
+							<view v-if="current">{{ nowProp.LastQuestionNumTo4 }}/{{ nowProp.Banks4Count }}</view>
+							<view v-else>{{ nowProp.LastQuestionNumTo1 }}/{{ nowProp.Banks1Count }}</view>
+							<view class="bg1"></view>
+							<view class="bg2"></view>
+						</view>
+						<view class="start exam" @click="toPractice(50, '模拟考试')">
+							<view>模拟考试</view>
+							<view v-if="current === 0 && ke1">成绩：{{ ke1 }}分</view>
+							<view v-if="current === 1 && ke2">成绩：{{ ke2 }}分</view>
+						</view>
+					</view>
+					<view class="item item--right">
+						<view class="start" @click="toPractice(15, '小练习')">
+							<view class="icon">
+								<image src="@/static/icon/icon10.png" mode=""></image>
+							</view>
+							<view class="title">
+								每日一练
+							</view>
+						</view>
+
+						<view class="start" @click="toPractice(50, '易错巩固')">
+							<view class="icon">
+								<image src="@/static/icon/icon05.png" mode=""></image>
+							</view>
+							<view class="title">
+								易错巩固
+							</view>
+						</view>
 					</view>
 				</view>
-			</view>
-		</view>
+			</swiper-item>
+		</swiper>
+
 	</view>
 </template>
 
 <script>
-	import { mapGetters } from 'vuex'
+	import {
+		mapGetters
+	} from 'vuex'
 	import api from '@/utils/api.js'
 	export default {
 		data() {
 			return {
-				background: ['color1', 'color2', 'color3'],
 				indicatorDots: true,
 				autoplay: true,
-				// interval: 2000,
-				// duration: 500,
 
 				items: ['科目一', '科目四'],
 				current: 0,
 				activeColor: '#007aff',
-				
-				nowProp: {}
+
+				nowProp: {
+					Banks1Count: 0,
+					Banks4Count: 0,
+					LastQuestionNumTo1: 0,
+					LastQuestionNumTo4: 0
+				},
+
+				ke1: 0,
+				ke2: 0
+
 			}
 		},
 		computed: {
 			...mapGetters(['token'])
 		},
-		onLoad() {
-			
-		},
 		onShow() {
+			this.ke1 = uni.getStorageSync('ke1')
+			this.ke2 = uni.getStorageSync('ke2')
 			this.$store.dispatch('user/getUserInfo')
 			this.getQuestion();
 		},
 		methods: {
-			toPractice(num, title) {				
+			changeSwiper(e) {
+				this.current = e.target.current;
+				console.log(this.current)
+			},
+			toPractice(num, title) {
 				let _querystr = `&type=${this.current ? 4 : 1}&title=${title}`
-				
-				if(typeof num === 'number' && !!num) {
+
+				if (typeof num === 'number' && !!num) {
 					uni.navigateTo({
 						url: `/pages/practice/index?sum=${num}${_querystr}`
 					})
@@ -112,13 +130,29 @@
 				})
 			},
 			// 获取题目配置信息
-			getQuestion(){
+			getQuestion() {
+				api.getQuestionConfigNoLogin().then(res => {
+					console.log(res.Data, '============')
+					let {
+						Banks1Count,
+						Banks4Count
+					} = res.Data;
+					this.nowProp.Banks1Count = Banks1Count;
+					this.nowProp.Banks4Count = Banks4Count;
+				})
 				api.getQuestionConfig().then(res => {
-					this.nowProp = res.Data
+					let {
+						LastQuestionNumTo1,
+						LastQuestionNumTo4
+					} = res.Data;
+					this.nowProp.LastQuestionNumTo1 = LastQuestionNumTo1 || 0;
+					this.nowProp.LastQuestionNumTo4 = LastQuestionNumTo4 || 0;
 				})
 			},
 			// tab 切换
-			onClickItem({ currentIndex }) {
+			onClickItem({
+				currentIndex
+			}) {
 				this.current = currentIndex;
 			}
 		},
@@ -139,6 +173,7 @@
 			padding: 50rpx 0;
 
 			.item {
+
 				&--left,
 				&--right {
 					width: 1rpx;
@@ -157,7 +192,7 @@
 						.icon {
 							width: 90rpx;
 							height: 90rpx;
-							
+
 							image {
 								width: 100%;
 								height: 100%;
@@ -218,6 +253,10 @@
 					}
 				}
 			}
+		}
+		
+		.swiper1 {
+			height: 600rpx;
 		}
 
 		.swiper {

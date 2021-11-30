@@ -1,7 +1,10 @@
 <script>
 	export default {
 		globalData: {
-			apiUrl: `http://47.98.213.156`,
+			// apiUrl: `http://47.98.213.156`,
+			apiUrl: `http://api.buerblog.cn`,
+			
+			
 		},
 		onLaunch: function() {
 			console.log('App Launch')
