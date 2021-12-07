@@ -69,6 +69,9 @@
   font-weight: 400;
   color: #FFFFFF;
 }
+.content .swiper1.data-v-57280228 {
+  height: 600rpx;
+}
 .content .swiper.data-v-57280228 {
   height: 160rpx;
 }

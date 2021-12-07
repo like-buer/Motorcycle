@@ -3,6 +3,7 @@
     "pages/index/index",
     "pages/profile/index",
     "pages/practice/index",
+    "pages/practice/result",
     "pages/profile/login"
   ],
   "subPackages": [],

@@ -268,6 +268,7 @@ var _index = __webpack_require__(/*! @/utils/index.js */ 42);function _interopRe
       questionnum: 400,
       questionList: [], // 当前的题目列表
       answerList: [], // 用户的答案列表
+      scoreAnswerNum: 0, // 得分的题目
 
       checkOption: [],
       submitOption: [],
@@ -284,11 +285,9 @@ var _index = __webpack_require__(/*! @/utils/index.js */ 42);function _interopRe
       if (this.starIdx <= 1) return;
       if (this.questionList.filter(function (_) {return !!_;}).length) {
         if (!this.questionList[val + 3]) {
-          console.log('下一页');
           this.getList(this.endIdx + 1, this.endIdx + this.size);
         }
         if (!this.questionList[val - 3]) {
-          console.log('上一页');
           this.getList(this.starIdx - this.size, this.starIdx - 1);
         }
       }
@@ -304,7 +303,9 @@ var _index = __webpack_require__(/*! @/utils/index.js */ 42);function _interopRe
 
     options.idx,sum = options.sum,type = options.type,title = options.title;
 
-    uni.setNavigationBarTitle({ title: title });
+    uni.setNavigationBarTitle({
+      title: title });
+
 
     // 指定題目的练习
     if (sum) {
@@ -323,6 +324,9 @@ var _index = __webpack_require__(/*! @/utils/index.js */ 42);function _interopRe
     this.endIdx = Number(idx) + this.size;
     this.getList(this.starIdx, this.endIdx);
   },
+  onShow: function onShow() {
+    this.current = 0;
+  },
   methods: {
     changeSwiperEnd: function changeSwiperEnd(e) {
       this.current = e.target.current;
@@ -337,6 +341,7 @@ var _index = __webpack_require__(/*! @/utils/index.js */ 42);function _interopRe
     },
     // 答题
     checkAnswer: function checkAnswer(idx, index) {
+      if (this.answerList[idx].length) return;
       if (this.submitOption.length) return;
       var _option = this.questionList[idx].Options;
       this.checkOption.push(index);
@@ -351,12 +356,22 @@ var _index = __webpack_require__(/*! @/utils/index.js */ 42);function _interopRe
       this.checkOption = [];
 
       if (this.checkTheAnswer(idx)) {
-        console.log('next question');
+        this.scoreAnswerNum++;
         this.awaitNextQuestion = setTimeout(function () {
+          if (idx + 1 === Number(_this.questionnum) && _this.option.title === '模拟考试') {
+            uni.navigateTo({
+              url: "/pages/practice/result?sum=".concat(_this.questionnum, "&num=").concat(_this.scoreAnswerNum, "&type=").concat(_this.option.type) });
+
+            return;
+          }
           _this.nextQuestion(idx);
         }, 1000);
       } else {
-        this.showAnalysis();
+        if (idx + 1 === Number(this.questionnum) && this.option.title === '模拟考试') {
+          uni.navigateTo({
+            url: "/pages/practice/result?sum=".concat(this.questionnum, "&num=").concat(this.scoreAnswerNum, "&type=").concat(this.option.type) });
+
+        }
       }
     },
     // 检查答案
@@ -369,11 +384,6 @@ var _index = __webpack_require__(/*! @/utils/index.js */ 42);function _interopRe
         }
       });
       return result;
-    },
-    // 查看解析
-    showAnalysis: function showAnalysis() {
-      // this.isAnalysis = true;
-      console.log('預留查看解析');
     },
     // 下一题
     nextQuestion: function nextQuestion(idx) {

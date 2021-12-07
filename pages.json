@@ -19,6 +19,12 @@
       }
     },
     {
+      "path": "pages/practice/result",
+      "style": {
+        "navigationBarTitleText": "得分"
+      }
+    },
+    {
       "path": "pages/profile/login",
       "style": {
         "navigationBarTitleText": "登录"

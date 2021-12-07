@@ -86,6 +86,7 @@
 				questionnum: 400,
 				questionList: [], // 当前的题目列表
 				answerList: [], // 用户的答案列表
+				scoreAnswerNum: 0, // 得分的题目
 
 				checkOption: [],
 				submitOption: [],
@@ -102,11 +103,9 @@
 				if (this.starIdx <= 1) return;
 				if (this.questionList.filter(_ => !!_).length) {
 					if (!this.questionList[val + 3]) {
-						console.log('下一页')
 						this.getList(this.endIdx + 1, this.endIdx + this.size);
 					}
 					if (!this.questionList[val - 3]) {
-						console.log('上一页')
 						this.getList(this.starIdx - this.size, this.starIdx - 1);
 					}
 				}
@@ -121,8 +120,10 @@
 				type,
 				title
 			} = options;
-			
-			uni.setNavigationBarTitle({ title });
+
+			uni.setNavigationBarTitle({
+				title
+			});
 
 			// 指定題目的练习
 			if (sum) {
@@ -141,6 +142,9 @@
 			this.endIdx = Number(idx) + this.size;
 			this.getList(this.starIdx, this.endIdx);
 		},
+		onShow() {
+			this.current = 0;
+		},
 		methods: {
 			changeSwiperEnd(e) {
 				this.current = e.target.current;
@@ -155,6 +159,7 @@
 			},
 			// 答题
 			checkAnswer(idx, index) {
+				if(this.answerList[idx].length) return;
 				if (this.submitOption.length) return
 				let _option = this.questionList[idx].Options;
 				this.checkOption.push(index)
@@ -169,12 +174,22 @@
 				this.checkOption = [];
 
 				if (this.checkTheAnswer(idx)) {
-					console.log('next question')
+					this.scoreAnswerNum++;
 					this.awaitNextQuestion = setTimeout(() => {
+						if (idx + 1 === Number(this.questionnum) && this.option.title === '模拟考试') {
+							uni.navigateTo({
+								url: `/pages/practice/result?sum=${ this.questionnum }&num=${ this.scoreAnswerNum }&type=${ this.option.type }`,
+							});
+							return;
+						}
 						this.nextQuestion(idx);
 					}, 1000)
 				} else {
-					this.showAnalysis();
+					if (idx + 1 === Number(this.questionnum) && this.option.title === '模拟考试') {
+						uni.navigateTo({
+							url: `/pages/practice/result?sum=${ this.questionnum }&num=${ this.scoreAnswerNum }&type=${ this.option.type }`,
+						});
+					}
 				}
 			},
 			// 检查答案
@@ -187,11 +202,6 @@
 					}
 				})
 				return result;
-			},
-			// 查看解析
-			showAnalysis() {
-				// this.isAnalysis = true;
-				console.log('預留查看解析')
 			},
 			// 下一题
 			nextQuestion(idx) {
@@ -213,12 +223,12 @@
 					BanksType: Number(this.option.type),
 					RandomnNum: Number(sum)
 				}).then(res => {
-					if(!sum) {
+					if (!sum) {
 						this.questionnum = res.Count;
 					}
-					
+
 					let _arr = [...this.questionList]
-					let _data = res.Data.map((item,index) => {
+					let _data = res.Data.map((item, index) => {
 						let _answer = [];
 						try {
 							_answer = JSON.parse(item.Answer)
@@ -251,7 +261,7 @@
 		height: 100vh;
 		overflow-y: auto;
 		position: relative;
-		
+
 		swiper-item {
 			overflow-y: auto;
 		}

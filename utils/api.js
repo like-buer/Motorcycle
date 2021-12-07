@@ -39,7 +39,15 @@ const api = {
 			method: 'get',
 			type: 'application/json'
 		})
-	}
+	},
+	getQuestionConfigNoLogin(){
+		return request({
+			url: '/api/Bandk/GetbanksCountToNotLogin',
+			method: 'get',
+			type: 'application/json'
+		})
+	},
+	
 	
 }
 
