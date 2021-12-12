@@ -36,7 +36,7 @@
 						</view>
 					</view>
 					<view class="item item--center">
-						<view class="start order" @click="toPractice(0, '顺序练习')">
+						<view class="start order" @click="toPractice(0, '顺序练习' )">
 							<view>顺序联系</view>
 							<view v-if="current">{{ nowProp.LastQuestionNumTo4 }}/{{ nowProp.Banks4Count }}</view>
 							<view v-else>{{ nowProp.LastQuestionNumTo1 }}/{{ nowProp.Banks1Count }}</view>
@@ -118,21 +118,22 @@
 			},
 			toPractice(num, title) {
 				let _querystr = `&type=${this.current ? 4 : 1}&title=${title}`
-
 				if (typeof num === 'number' && !!num) {
 					uni.navigateTo({
 						url: `/pages/practice/index?sum=${num}${_querystr}`
 					})
 					return;
 				}
+				
 				uni.navigateTo({
-					url: `/pages/practice/index?idx=0${_querystr}`
+					url: `/pages/practice/index?idx=${ this.nowProp[ `LastQuestionNumTo${this.current ? 4 : 1}` ] }${_querystr}`
 				})
 			},
 			// 获取题目配置信息
 			getQuestion() {
+				this.nowProp.LastQuestionNumTo1 = uni.getStorageSync('LastQuestionNumTo1');
+				this.nowProp.LastQuestionNumTo4 = uni.getStorageSync('LastQuestionNumTo4');
 				api.getQuestionConfigNoLogin().then(res => {
-					console.log(res.Data, '============')
 					let {
 						Banks1Count,
 						Banks4Count
@@ -140,13 +141,15 @@
 					this.nowProp.Banks1Count = Banks1Count;
 					this.nowProp.Banks4Count = Banks4Count;
 				})
+				
 				api.getQuestionConfig().then(res => {
 					let {
 						LastQuestionNumTo1,
 						LastQuestionNumTo4
 					} = res.Data;
-					this.nowProp.LastQuestionNumTo1 = LastQuestionNumTo1 || 0;
-					this.nowProp.LastQuestionNumTo4 = LastQuestionNumTo4 || 0;
+					
+					this.nowProp.LastQuestionNumTo1 = LastQuestionNumTo1  || 0;
+					this.nowProp.LastQuestionNumTo4 = LastQuestionNumTo4  || 0;
 				})
 			},
 			// tab 切换

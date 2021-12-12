@@ -1,6 +1,5 @@
 <template>
 	<view class="">
-
 		<template v-if="questionList.length">
 			<swiper class="swiper" :current="current" @change="changeSwiper" @animationfinish="changeSwiperEnd"
 				disable-touch>
@@ -130,12 +129,13 @@
 				this.current = 0;
 				this.questionnum = sum;
 				this.answerList = new Array(Number(sum)).fill([])
-				// let _idx = random(0, this.questionnum - Number(sum));
-				// this.starIdx = Number(_idx);
-				// this.endIdx = this.starIdx + Number(sum) - 1;
 				this.getList(1, 1, sum);
 				return;
 			}
+			
+			console.log('=======================')
+			console.log({...options})
+			console.log(idx);
 			this.current = Number(idx);
 			this.answerList = new Array(this.questionnum).fill([])
 			this.starIdx = Number(idx) - this.size;
@@ -160,7 +160,8 @@
 			// 答题
 			checkAnswer(idx, index) {
 				if(this.answerList[idx].length) return;
-				if (this.submitOption.length) return
+				if (this.submitOption.length) return;
+				
 				let _option = this.questionList[idx].Options;
 				this.checkOption.push(index)
 				if (_option.length > 1) return;
@@ -168,7 +169,13 @@
 			},
 			// 提交答案
 			submitAnswer(idx) {
-				console.log('提交', idx)
+				// 保存用户进度
+				if(this.option.title === '顺序练习') {
+					let query = {};
+					query[ `LastQuestionNumTo${ this.option.type }` ] = idx + 1
+					api.EditUserInfo(query);
+					uni.setStorageSync(`LastQuestionNumTo${ this.option.type }`, idx + 1)
+				}
 				this.submitOption = Array.from(new Set(this.checkOption)).sort((a, b) => a - b)
 				this.answerList[idx] = this.submitOption;
 				this.checkOption = [];
@@ -225,6 +232,7 @@
 				}).then(res => {
 					if (!sum) {
 						this.questionnum = res.Count;
+						this.current = this.option.idx;
 					}
 
 					let _arr = [...this.questionList]
@@ -246,9 +254,7 @@
 					_data.forEach((item, index) => {
 						_arr[starIdx + index - 1] = item;
 					})
-					console.log(_arr.filter(_ => !!_), '======')
 					this.questionList = _arr.filter(_ => !!_);
-					console.log(this.questionList)
 				})
 			}
 		}

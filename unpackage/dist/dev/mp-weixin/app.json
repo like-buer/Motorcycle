@@ -1,35 +1,36 @@
 {
-  "pages": [
-    "pages/index/index",
-    "pages/profile/index",
-    "pages/practice/index",
-    "pages/practice/result",
-    "pages/profile/login"
-  ],
-  "subPackages": [],
-  "window": {
-    "navigationBarTextStyle": "black",
-    "navigationBarTitleText": "Motorcycle",
-    "navigationBarBackgroundColor": "#F8F8F8",
-    "backgroundColor": "#F8F8F8"
-  },
-  "tabBar": {
-    "color": "#939393",
-    "selectedColor": "#737373",
-    "list": [
-      {
-        "pagePath": "pages/index/index",
-        "text": "考证",
-        "iconPath": "static/tabbar/card.png",
-        "selectedIconPath": "static/tabbar/card_c.png"
-      },
-      {
-        "pagePath": "pages/profile/index",
-        "text": "我的",
-        "iconPath": "static/tabbar/profile.png",
-        "selectedIconPath": "static/tabbar/profile_c.png"
-      }
-    ]
-  },
-  "usingComponents": {}
+    "pages": [
+        "pages/index/index",
+        "pages/profile/index",
+        "pages/practice/index",
+        "pages/practice/result",
+        "pages/profile/login"
+    ],
+    "subPackages": [],
+    "window": {
+        "navigationBarTextStyle": "black",
+        "navigationBarTitleText": "Motorcycle",
+        "navigationBarBackgroundColor": "#F8F8F8",
+        "backgroundColor": "#F8F8F8"
+    },
+    "tabBar": {
+        "color": "#939393",
+        "selectedColor": "#737373",
+        "list": [
+            {
+                "pagePath": "pages/index/index",
+                "text": "考证",
+                "iconPath": "static/tabbar/card.png",
+                "selectedIconPath": "static/tabbar/card_c.png"
+            },
+            {
+                "pagePath": "pages/profile/index",
+                "text": "我的",
+                "iconPath": "static/tabbar/profile.png",
+                "selectedIconPath": "static/tabbar/profile_c.png"
+            }
+        ]
+    },
+    "usingComponents": {},
+    "sitemapLocation": "sitemap.json"
 }

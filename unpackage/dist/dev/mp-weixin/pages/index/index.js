@@ -298,21 +298,22 @@ var _api = _interopRequireDefault(__webpack_require__(/*! @/utils/api.js */ 15))
     },
     toPractice: function toPractice(num, title) {
       var _querystr = "&type=".concat(this.current ? 4 : 1, "&title=").concat(title);
-
       if (typeof num === 'number' && !!num) {
         uni.navigateTo({
           url: "/pages/practice/index?sum=".concat(num).concat(_querystr) });
 
         return;
       }
+
       uni.navigateTo({
-        url: "/pages/practice/index?idx=0".concat(_querystr) });
+        url: "/pages/practice/index?idx=".concat(this.nowProp["LastQuestionNumTo".concat(this.current ? 4 : 1)]).concat(_querystr) });
 
     },
     // 获取题目配置信息
     getQuestion: function getQuestion() {var _this = this;
-      _api.default.getQuestionConfigNoLogin().then(function (res) {
-        console.log(res.Data, '============');var _res$Data =
+      this.nowProp.LastQuestionNumTo1 = uni.getStorageSync('LastQuestionNumTo1');
+      this.nowProp.LastQuestionNumTo4 = uni.getStorageSync('LastQuestionNumTo4');
+      _api.default.getQuestionConfigNoLogin().then(function (res) {var _res$Data =
 
 
 
@@ -320,11 +321,13 @@ var _api = _interopRequireDefault(__webpack_require__(/*! @/utils/api.js */ 15))
         _this.nowProp.Banks1Count = Banks1Count;
         _this.nowProp.Banks4Count = Banks4Count;
       });
+
       _api.default.getQuestionConfig().then(function (res) {var _res$Data2 =
 
 
 
         res.Data,LastQuestionNumTo1 = _res$Data2.LastQuestionNumTo1,LastQuestionNumTo4 = _res$Data2.LastQuestionNumTo4;
+
         _this.nowProp.LastQuestionNumTo1 = LastQuestionNumTo1 || 0;
         _this.nowProp.LastQuestionNumTo4 = LastQuestionNumTo4 || 0;
       });

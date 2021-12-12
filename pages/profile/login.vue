@@ -24,44 +24,23 @@
 				let { iv, encryptedData } = e.detail;
 				uni.login({
 					provider: 'weixin',
-					success: ({code}) => {
-						// api.login({ iv, encryptedData, js_code: code }).then(res => {
-						// 	uni.setStorageSync('token', res.Data)
-						// 	setTimeout(() => {
-						// 		toast('登录成功')
-						// 	},1000)
-						// 	uni.navigateBack()
-						// }).catch(err => {
-						// 	toast('网络异常，请重试')
-						// })
-					
-						this.$store.dispatch('user/login', { iv, encryptedData, js_code: code }).then(() => {
-							this.$store.dispatch('user/getUserInfo').then(res => {
-								console.log(res,'========')
-							})
-							toast('登录成功')
-							setTimeout(() => {
-								uni.navigateBack()
-							}, 1000)
-						}).catch(() => {
-							toast('网络异常，请重试')
+					success: () => {
+						uni.login({
+							provider: 'weixin',
+							success: ({code}) => {
+								this.$store.dispatch('user/login', { iv, encryptedData, js_code: code }).then(() => {
+									this.$store.dispatch('user/getUserInfo')
+									toast('登录成功')
+									setTimeout(() => {
+										uni.navigateBack()
+									}, 1000)
+								}).catch(() => {
+									toast('网络异常，请重试')
+								})
+							},
 						})
-						
-						// uni.login({
-						// 	provider: 'weixin',
-						// 	success: ({code}) => {
-								// api.login({ iv, encryptedData, js_code: code }).then(res => {
-								// 	toast('登录成功')
-								// 	uni.setStorageSync('token', res.Data)
-								// 	uni.navigateBack()
-								// }).catch(err => {
-								// 	toast('网络异常，请重试')
-								// })
-						// 	}
-						// })
 					}
 				})
-				
 			},
 		}
 	}
